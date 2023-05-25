@@ -3,24 +3,26 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and title
-repository-name: eYY-4yp-project-template
-title:
+repository-name: e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry
+title:Virtual Patient Simulator for Skill Training in Dentistry
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# Virtual Patient Simulator for Skill Training in Dentistry
 
 #### Team
 
-- eNumber, Name, [email](mailto:name@email.com)
-- eNumber, Name, [email](mailto:name@email.com)
-- eNumber, Name, [email](mailto:name@email.com)
+- E/17/005, Rishard.M.I., [email](mailto:e17005@eng.pdn.ac.lk)
+- E/17/327, Shalha.A.M.F., [email](mailto:e17327@eng.pdn.ac.lk)
+- E/17/379, Weerasinghe.S.P.D.D.S., [email](mailto:e17379@eng.pdn.ac.lk)
 
 #### Supervisors
 
-- Name, [email](mailto:name@eng.pdn.ac.lk)
-- Name, [email](mailto:name@eng.pdn.ac.lk)
+- Prof. Roshan G. Ragel, [email](mailto:roshanr@eng.pdn.ac.lk)
+- Dr. Upul Jayasinghe , [email](mailto:upuljm@eng.pdn.ac.lk)
+- Dr. D Leuke Bandara , [email](mailto:dhanulb@dental.pdn.ac.lk)
+- Dr. Titus Jayarathna , [email](mailto:titus@eng.pdn.ac.lk)
 
 #### Table of content
 
@@ -68,8 +70,8 @@ This is a sample image, to show how to add images to your page. To learn more op
 
 [//]: # ( NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS )
 
-- [Project Repository](https://github.com/cepdnaclk/repository-name)
-- [Project Page](https://cepdnaclk.github.io/repository-name)
+- [Project Repository](https://github.com/cepdnaclk/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
+- [Project Page](https://cepdnaclk.github.io/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
