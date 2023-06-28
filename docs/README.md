@@ -90,11 +90,11 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 
 ## Methodology
 
-### 3D Patient Simulator
+### **3D Patient Simulator**
 
 #### Existing System 
 - Intra oral view of a mouth
-  
+
 ### Enhancement to the system
 
 #### Interactive 3D Dental Room Model: 
@@ -115,7 +115,7 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 ##### Virtual Reality (VR) Application: 
 - Extend the platform to support VR usage, offering a fully immersive, hands-on training experience in a risk-free, virtual environment.
 
-### Intelligent Tutoring System
+### **Intelligent Tutoring System**
 
 ##### Existing System 
 
@@ -125,10 +125,10 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 
 #### Expanded Clinical Case Database: 
 - Increase the number and diversity of clinical cases to provide a comprehensive learning experience.
-- 
+  
 ##### Enhanced Patient Visualization: 
 - Incorporate 3D facial modeling to provide a more realistic extraoral view, improving diagnostic and treatment planning skills.
-- 
+  
 ##### Advanced Auto-Suggest Feature: 
 - Implement an auto-suggestion system that recommends dental clinical terms as users type, improving efficiency and accuracy
 
