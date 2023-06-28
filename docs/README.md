@@ -155,7 +155,7 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 [//]: # ( NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS )
 
 - [Project Repository](https://github.com/cepdnaclk/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
-- [Project Page]([https://cepdnaclk.github.io/e16-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry](https://cepdnaclk.github.io/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
+- [Project Page](https://cepdnaclk.github.io/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
