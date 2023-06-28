@@ -90,11 +90,49 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 
 
 ## Methodology
+### 3D Patient Simulator
+### Existing System 
+- Intra oral view of a mouth
+### Enhancement to the system
+#### Interactive 3D Dental Room Model: 
+- Develop a 3D model of a dental clinic, complete with all necessary instruments, for a more realistic user experience.
 
+##### Instrument Selection: 
+- Enable users to select and interact with dental instruments within the virtual environment, fostering familiarity and dexterity.
 
-<p align="center" width="100%">
-	<![system architecture](./images/name.png)>
-</p>
+##### Virtual Dental Operations: 
+- Allow users to conduct virtual dental operations, reinforcing practical skills and promoting the application of theoretical knowledge.
+
+##### Radiograph Selection: 
+- Give users the ability to choose and analyze relevant radiographs, enhancing diagnostic skills and understanding.
+
+##### Haptic Device Integration: 
+- Incorporate haptic devices to simulate tactile sensations, providing a more immersive and realistic learning experience.
+
+##### Virtual Reality (VR) Application: 
+- Extend the platform to support VR usage, offering a fully immersive, hands-on training experience in a risk-free, virtual environment.
+
+### Intelligent Tutoring System
+#### Existing System 
+- The virtual patient web interface was designed including the main three phases of patient assessment in dentistry (History taking, Examination and Investigation, Diagnosis
+
+### Enhancement to the system
+#### Expanded Clinical Case Database: 
+- Increase the number and diversity of clinical cases to provide a comprehensive learning experience.
+##### Enhanced Patient Visualization: 
+- Incorporate 3D facial modeling to provide a more realistic extraoral view, improving diagnostic and treatment planning skills.
+
+##### Advanced Auto-Suggest Feature: 
+- Implement an auto-suggestion system that recommends dental clinical terms as users type, improving efficiency and accuracy
+
+##### Improved Question Flow Testing: 
+-Implement testing to verify the correct sequence of questions based on patient responses.
+
+##### Dynamic Question Paraphrasing: 
+- Refresh predefined questions and answers to add dynamism and maintain user engagement.
+
+##### Intelligent Feedback Mechanism: 
+- Develop a smart feedback system that guides users in choosing relevant questions and improves their questioning skills.
 
 
 ## Results and Analysis
@@ -109,8 +147,6 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 
 1. [Semester 7 report](./Publications/)
 2. [Semester 7 slides](./Publications/)
-3. [Semester 8 report](./Publications/)
-4. [Semester 8 slides](./Publications/)
 <!-- 5. Author 1, Author 2 and Author 3 "Research paper title" (2021). [PDF](./). -->
 
 
@@ -119,7 +155,7 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 [//]: # ( NOTE: EDIT THIS LINKS WITH YOUR REPO DETAILS )
 
 - [Project Repository](https://github.com/cepdnaclk/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
-- [Project Page]([https://cepdnaclk.github.io/e16-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry](https://cepdnaclk.github.io/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry/)
+- [Project Page]([https://cepdnaclk.github.io/e16-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry](https://cepdnaclk.github.io/e17-4yp-Virtual-Patient-Simulator-for-Skill-Training-in-Dentistry)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
