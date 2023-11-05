@@ -18,8 +18,8 @@ function ThreeD() {
         unityProvider={unityProvider}
         style={{
           visibility: isLoaded ? "visible" : "hidden",
-          width: "1000px",
-          height: "800pxs",
+          width: "100%", // changed from fixed 1000px to be responsive
+          height: "100vh",
         }}
       />
     </>
