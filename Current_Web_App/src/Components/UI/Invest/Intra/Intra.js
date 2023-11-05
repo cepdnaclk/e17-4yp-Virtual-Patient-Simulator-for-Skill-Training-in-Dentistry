@@ -19,6 +19,8 @@ import Invest from "../Invest";
 import Extra from "../Extra";
 import Instructions from "../Instructions";
 import { useSelector } from "react-redux";
+import BlackBoxWithButton from "./BlackBoxWithButton";
+import CombinedComponent from "./CombinedComponent";
 
 const Intra = () => {
   const navigate = useNavigate();
@@ -154,7 +156,7 @@ const Intra = () => {
           {exam_inv.perio ? (
             <Grid container spacing={10}>
               <Grid item xs={12}>
-                <ThreeD />
+                <CombinedComponent></CombinedComponent>
               </Grid>
               <Grid item xs={12}>
                 <div
@@ -238,7 +240,7 @@ const Intra = () => {
           {exam_inv.soft ? (
             <Grid container spacing={10}>
               <Grid item xs={12}>
-                <ThreeD />
+                <CombinedComponent></CombinedComponent>
               </Grid>
               <Grid item xs={12}>
                 <div
@@ -316,7 +318,7 @@ const Intra = () => {
           {exam_inv.mark ? (
             <Grid container spacing={10}>
               <Grid item xs={12}>
-                <ThreeD />
+                <CombinedComponent></CombinedComponent>
               </Grid>
               <Grid item xs={12}>
                 <div
@@ -401,7 +403,7 @@ const Intra = () => {
           {exam_inv.intraview ? (
             <Grid container spacing={10}>
               <Grid item xs={12}>
-                <ThreeD />
+                <CombinedComponent></CombinedComponent>
               </Grid>
               <Grid item xs={12}>
                 <div
@@ -448,9 +450,6 @@ const Intra = () => {
                     >
                       Hard Tissue Assessment
                     </Button>
-                    {/* <Button onClick={() => onClickHandler6()} className="btnGrp stylish-button" id='ging'>
-      Gingival Assessment
-    </Button> */}
                   </ButtonGroup>
                 </div>
               </Grid>
@@ -508,7 +507,7 @@ const Intra = () => {
           !exam_inv.ging ? (
             <Grid container spacing={10}>
               <Grid item xs={12}>
-                <ThreeD />
+                <CombinedComponent></CombinedComponent>
               </Grid>
               <Grid item xs={12}>
                 <div
