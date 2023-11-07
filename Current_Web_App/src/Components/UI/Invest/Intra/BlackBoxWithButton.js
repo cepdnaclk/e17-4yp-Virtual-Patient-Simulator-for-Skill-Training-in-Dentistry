@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const BlackBoxWithButton = () => {
+const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const [buttonText, setButtonText] = useState("Next");
   const [showQuestion, setShowQuestion] = useState(false);
   const [selectedTool, setSelectedTool] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showAdditionalButton, setShowAdditionalButton] = useState(true);
+  const [taskCompleted, setTaskCompleted] = useState(false);
+
+  // Effect hook to listen for changes in unityData
+  useEffect(() => {
+    console.log("Unity data received in BlackBoxWithButton:", unityData); // Add this line for debugging
+    if (unityData === "MessageFromUnity") {
+      // Make sure this matches the string sent from Unity
+      setTaskCompleted(true);
+    }
+  }, [unityData]);
+
+  const handleSendToUnityClick = () => {
+    if (sendToUnity) {
+      sendToUnity("MessageFromReact");
+    }
+  };
 
   const boxStyle = {
     width: "100%", // changed from 100px to be responsive
@@ -62,6 +78,12 @@ const BlackBoxWithButton = () => {
 
   return (
     <div style={boxStyle}>
+      <button style={buttonStyle} onClick={handleSendToUnityClick}>
+        Send to Unity
+      </button>
+      {taskCompleted && (
+        <p style={{ color: "white" }}>Task Completed</p> // This message will be displayed when the task is completed
+      )}
       {showQuestion && (
         <div
           style={{
