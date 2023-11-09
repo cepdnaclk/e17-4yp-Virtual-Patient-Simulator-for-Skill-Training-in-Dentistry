@@ -1,32 +1,30 @@
+// CheckboxQuestion.js
+
 import React from "react";
 
-const CheckboxQuestion = ({ answers, onCheckboxChange }) => {
+const CheckboxQuestion = ({ question, answers, onCheckboxChange }) => {
   const renderCheckbox = (option, isChecked) => (
     <div key={option}>
-      {" "}
-      {/* Use a div to make each label appear on a new line */}
       <label>
         <input
           type="checkbox"
           name={option}
           checked={isChecked}
-          onChange={() => onCheckboxChange(option)} // Pass the option name to the change handler
+          onChange={() => onCheckboxChange(option)}
         />
-        {option} {/* Display the option name next to the checkbox */}
+        {option}
       </label>
     </div>
   );
 
-  // Render all checkboxes by mapping over the answers object
+  // Map over the answers object to render all checkboxes
   const checkboxes = Object.entries(answers).map(([option, isChecked]) =>
     renderCheckbox(option, isChecked)
   );
 
   return (
     <div>
-      <h5>
-        Select the instruments needed to carry out the periodontal screening
-      </h5>
+      <h5>{question}</h5> {/* Display the dynamic question */}
       <form>{checkboxes}</form>
     </div>
   );
