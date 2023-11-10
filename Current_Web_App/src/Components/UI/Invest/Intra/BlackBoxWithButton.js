@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import CheckBoxQuestion from "./CheckBoxQuestion";
+import RadioImageQuestion from "./RadioImageQuestion";
+import imgplaqueChart from "./images/imgplaquechart.jpeg";
+import RadioTextQuestion from "./RadioTextQuestion";
+import img3 from "../../../../Images/200.png";
 
 const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
@@ -7,8 +11,16 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [showAdditionalButton, setShowAdditionalButton] = useState(true);
+  const [selectedDiagram, setSelectedDiagram] = useState("");
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
+
+  // Add images for radio options
+  const diagramOptions = [
+    { src: "image1.jpg", value: "Diagram1" },
+    { src: "image2.jpg", value: "Diagram2" },
+    { src: "image3.jpg", value: "Diagram3" },
+    { src: "image4.jpg", value: "Diagram4" },
+  ];
   const [answers, setAnswers] = useState({
     Tweezer: false,
     Mirror: false,
@@ -16,6 +28,12 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
     "Naber’s probe": false,
     "Periodontal probe": false,
     "CPI probe": false,
+  });
+  const [plaqscoreanswers, setplaqscoreAnswers] = useState({
+    "54%": false,
+    "72%": false,
+    "78%": false,
+    "85%": false,
   });
   const [periodontalScreeningOptions, setPeriodontalScreeningOptions] =
     useState({
@@ -25,6 +43,12 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
       "Ball ended tip": false,
       "Always only one colour band": false,
     });
+  const [investigations, setInvestigations] = useState({
+    Radiographs: false,
+    "3D imaging": false,
+    "Sensibility testing ": false,
+    "Hematological investigations": false,
+  });
   const [instruction, setInstruction] = useState(
     "Conduct the EXTRA ORAL VIEW EXAMINATION"
   );
@@ -56,6 +80,49 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
       ...prevAnswers,
       [option]: !prevAnswers[option],
     }));
+  };
+
+  // Render the RadioImageQuestion component
+  const renderRadioImageQuestion = () => {
+    if (step === 3) {
+      return (
+        <RadioImageQuestion
+          question="Select the diagram which denotes code 3."
+          images={diagramOptions}
+          onImageSelect={handleImageSelect}
+          selectedValue={selectedDiagram}
+        />
+      );
+    }
+
+    return null;
+  };
+
+  const renderRadioQuestion = () => {
+    if (step === 11 || 12) {
+      const radiographOptions = [
+        "IOPA & DPT",
+        "DPT & Bitewing",
+        "IOPA only",
+        "IOPA & CBCT",
+      ];
+
+      return (
+        <RadioTextQuestion
+          question="What radiographs would you take?"
+          options={radiographOptions}
+          selectedValue={selectedDiagram} // Assuming selectedDiagram stores the selected radio option
+          onValueChange={handleImageSelect} // Reuse the same handler if appropriate, or create a new one if needed
+        />
+      );
+    }
+
+    return null;
+  };
+
+  // Handle radio button selection
+  const handleImageSelect = (value) => {
+    setSelectedDiagram(value);
   };
   // Function to handle changes in the text input
   const handleProcedureNameChange = (event) => {
@@ -100,6 +167,42 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
           question="Select the features of the instrument used for the periodontal screening."
           answers={periodontalScreeningOptions}
           onCheckboxChange={handleCheckboxChange} // You may need to create a new handler for this set of options
+        />
+      );
+    } else if (step === 5) {
+      // Render the first set of checkboxes
+      return (
+        <CheckBoxQuestion
+          question="Select the instruments needed to carry out the hard tissue assessment"
+          answers={answers}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      );
+    } else if (step === 8) {
+      // Render the first set of checkboxes
+      return (
+        <CheckBoxQuestion
+          question="Select the instruments needed to carry out the plaque score"
+          answers={answers}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      );
+    } else if (step === 9) {
+      // Render the first set of checkboxes
+      return (
+        <CheckBoxQuestion
+          question="What is the plaq score?"
+          answers={plaqscoreanswers}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      );
+    } else if (step === 10) {
+      // Render the first set of checkboxes
+      return (
+        <CheckBoxQuestion
+          question="Select the investigation/s you wish to proceed?"
+          answers={investigations}
+          onCheckboxChange={handleCheckboxChange}
         />
       );
     }
@@ -183,13 +286,38 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   };
   const handleButtonClick = () => {
     setShowToolTrayQuestion(false);
+
     // Increment step count on each submit
-    setStep((prevStep) => prevStep + 1);
+    setStep((prevStep) => {
+      const nextStep = prevStep + 1;
+
+      // Check if the step is about to become 4
+      if (nextStep === 4) {
+        // If it's about to become 4, change the examination and set the question message
+        setExamination("Soft Tissue Assessment");
+        setQuestionMessage("Normal in color and texture");
+      }
+      if (nextStep === 5) {
+        // If it's about to become 4, change the examination and set the question message
+        setExamination("Hard Tissue Assessment");
+      }
+      if (nextStep === 10) {
+        setInstruction("Investigation");
+        setExamination("");
+      }
+      if (nextStep === 11) {
+        setInstruction("Radiographs");
+        setExamination("");
+      }
+
+      return nextStep;
+    });
 
     // After step 2, you may want to change the buttonText to "Finish" or handle it differently
-    if (step >= 2) {
-      setButtonText("Finish");
-    }
+    // if (step === 3) {
+    //   // This will become 4 after the increment
+    //   setButtonText("Finish");
+    // }
   };
 
   return (
@@ -217,10 +345,75 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
             // Otherwise, if showToolTrayQuestion is true, render the checkbox question
             renderCheckBoxQuestion()
           ) : null}
-
           {step === 2 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>{renderCheckBoxQuestion()}</div>
+          )}
+          {step === 3 && <div>{renderRadioImageQuestion()}</div>}
+          {step === 4 && <p>{questionMessage}</p>}
+          {step === 5 && (
+            // When step is 2, you can add the new components or logic here for future additions
+            <div>{renderCheckBoxQuestion()}</div>
+          )}
+          {step === 8 && (
+            // When step is 2, you can add the new components or logic here for future additions
+            <div>
+              <div
+                className="imageContainer"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+              >
+                <img
+                  src={imgplaqueChart}
+                  alt="description"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+
+              {renderCheckBoxQuestion()}
+            </div>
+          )}
+          {step === 9 && (
+            // When step is 2, you can add the new components or logic here for future additions
+            <div>
+              <div
+                className="imageContainer"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+              >
+                <img
+                  src={imgplaqueChart}
+                  alt="description"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+
+              {renderCheckBoxQuestion()}
+            </div>
+          )}{" "}
+          {step === 10 && <div>{renderCheckBoxQuestion()}</div>}
+          {step === (11 || 12) && <div>{renderRadioQuestion()}</div>}
+          {step === 12 && (
+            <div
+              className="imageContainer"
+              style={{ maxHeight: "100%", maxWidth: "100%" }}
+            >
+              <img
+                src={img3}
+                alt="description"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
           )}
         </div>
       </div>
@@ -233,38 +426,5 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
     </div>
   );
 };
-//   const getButtonText = () => (step < 3 ? "Submit" : "Finish");
-//   return (
-//     <div style={boxStyle}>
-//       {/* Instruction Box */}
-//       {step === 0 && (
-//         <div style={instructionBoxStyle}>
-//           <p>Press The TOOL TRAY VIEW button to see the dental tools</p>
-//         </div>
-//       )}
-
-//       {/* Question Box */}
-//       <div style={questionBoxStyle}>
-//         {step === 1 && renderCheckBoxQuestion()}
-//         {step === 2 && (
-//           <>
-//             {renderTable()}
-//             {renderProcedureNameQuestion()}
-//           </>
-//         )}
-//         {step === 3 && (
-//           <div>{/* Render the final table or content here if necessary */}</div>
-//         )}
-//       </div>
-
-//       {/* Button */}
-//       <div>
-//         <button style={buttonStyle} onClick={handleSubmit}>
-//           {getButtonText()}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
 
 export default BlackBoxWithButton;
