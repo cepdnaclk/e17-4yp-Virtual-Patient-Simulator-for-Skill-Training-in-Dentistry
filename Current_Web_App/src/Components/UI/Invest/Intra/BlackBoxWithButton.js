@@ -317,7 +317,7 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
     width: "300px",
     height: "400px",
   };
-
+console.log("test");
   // Modify the existing boxStyle to accommodate new layout
   const boxStyle = {
     width: "30%", // Adjust this to the desired width
