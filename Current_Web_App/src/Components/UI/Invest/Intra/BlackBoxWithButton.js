@@ -4,6 +4,7 @@ import RadioImageQuestion from "./RadioImageQuestion";
 import imgplaqueChart from "./images/imgplaquechart.jpeg";
 import RadioTextQuestion from "./RadioTextQuestion";
 import img3 from "../../../../Images/200.png";
+import img4 from "../../../../Images/80.png";
 
 const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
@@ -13,6 +14,14 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedDiagram, setSelectedDiagram] = useState("");
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
+    // ... other state definitions
+    const [selectedPrognosis, setSelectedPrognosis] = useState(''); // Initial value can be an empty string or a default value
+
+
+  
+    const handlePrognosisSelect = (newValue) => {
+      setSelectedPrognosis(newValue);
+    };
 
   // Add images for radio options
   const diagramOptions = [
@@ -48,6 +57,13 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
     "3D imaging": false,
     "Sensibility testing ": false,
     "Hematological investigations": false,
+  });
+  const [prognosis, setPrognosis] = useState({
+    "Bone levels": false,
+    "Pulpal status": false,
+    "Periodontal status ": false,
+    "Caries extension": false,
+    "Peri-apical infection": false,
   });
   const [instruction, setInstruction] = useState(
     "Conduct the EXTRA ORAL VIEW EXAMINATION"
@@ -99,14 +115,14 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   };
 
   const renderRadioQuestion = () => {
-    if (step === 11 || 12) {
+    if (step === 11) {
       const radiographOptions = [
         "IOPA & DPT",
         "DPT & Bitewing",
         "IOPA only",
         "IOPA & CBCT",
       ];
-
+  
       return (
         <RadioTextQuestion
           question="What radiographs would you take?"
@@ -115,10 +131,28 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
           onValueChange={handleImageSelect} // Reuse the same handler if appropriate, or create a new one if needed
         />
       );
+    } else if (step === 14) {
+      const prognosisOptions = [
+        "Poor",
+        "Questionable",
+        "Good",
+        "Hopeless",
+      ];
+  
+      return (
+        <RadioTextQuestion
+          question="What is the prognosis for 17?"
+          options={prognosisOptions}
+          selectedValue={selectedPrognosis} // Define selectedPrognosis to store the selected option
+          onValueChange={handlePrognosisSelect} // Define handlePrognosisSelect to handle the option change
+        />
+      );
     }
-
+  
     return null;
   };
+  
+  
 
   // Handle radio button selection
   const handleImageSelect = (value) => {
@@ -202,6 +236,15 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
         <CheckBoxQuestion
           question="Select the investigation/s you wish to proceed?"
           answers={investigations}
+          onCheckboxChange={handleCheckboxChange}
+        />
+      );
+    }else if (step === 15) {
+      // Render the first set of checkboxes
+      return (
+        <CheckBoxQuestion
+          question="Prognosis of the tooth 17?"
+          answers={prognosis}
           onCheckboxChange={handleCheckboxChange}
         />
       );
@@ -308,6 +351,10 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
       if (nextStep === 11) {
         setInstruction("Radiographs");
         setExamination("");
+      }if(nextStep === 13){
+        setInstruction("Sensibility recordings");
+      }if(nextStep === 14){
+        setInstruction("Prognosis");
       }
 
       return nextStep;
@@ -398,23 +445,53 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
             </div>
           )}{" "}
           {step === 10 && <div>{renderCheckBoxQuestion()}</div>}
-          {step === (11 || 12) && <div>{renderRadioQuestion()}</div>}
+          {step === 11 && <div>{renderRadioQuestion()}</div>}
           {step === 12 && (
-            <div
-              className="imageContainer"
-              style={{ maxHeight: "100%", maxWidth: "100%" }}
-            >
-              <img
-                src={img3}
-                alt="description"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          )}
+  <div
+    className="imageContainer"
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "1px",
+      overflowY: 'auto',
+      paddingTop: '1px', // Reduced top padding
+      paddingRight: '10px',
+      paddingBottom: '1px',
+      paddingLeft: '10px',
+    }}
+  >
+    <div style={{ textAlign: 'center', width: '100%', marginTop: '0' }}> {/* Removed top margin from the first image container */}
+      <img
+        src={img3}
+        alt="IOPA 17"
+        style={{
+          maxWidth: "100%",
+          maxHeight: "190px",
+          objectFit: "contain",
+        }}
+      />
+      <p style={{ fontSize: 'smaller' }}>IOPA 17</p>
+    </div>
+    <div style={{ textAlign: 'center', width: '100%' }}>
+      <img
+        src={img4}
+        alt="DPT"
+        style={{
+          maxWidth: "100%",
+          maxHeight: "190px",
+          objectFit: "contain",
+        }}
+      />
+      <p style={{ fontSize: 'smaller', marginTop: '5px' }}>DPT</p> {/* Label for the second image */}
+    </div>
+  </div>
+)}{step === 14 && <div>{renderRadioQuestion()}</div>}
+{step === 15 && <div>{renderCheckBoxQuestion()}</div>}
+
+
+
+
         </div>
       </div>
 
