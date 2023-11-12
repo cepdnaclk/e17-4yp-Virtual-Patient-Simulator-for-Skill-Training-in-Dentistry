@@ -1,32 +1,78 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import ThreeD from "../../resources/ThreeD";
 import BlackBoxWithButton from "./BlackBoxWithButton";
+
 const CombinedComponent = () => {
+  const [unityData, setUnityData] = useState(null);
+  const sendToUnityRef = useRef(null);
+
+  const handleUnityData = (data) => {
+    console.log("Data received from Unity:", data);
+    setUnityData(data);
+  };
+
+  const getSendMessageToUnity = (sendMessage) => {
+    sendToUnityRef.current = sendMessage;
+    console.log("getSendMessageToUnity called", sendMessage);
+  };
+
+  // Adjust the main container to lay out items horizontally
   const containerStyle = {
-    display: "flex", // flex layout
-    justifyContent: "space-between", // space out the children components
-    width: "100%", // take up the full width of the parent
-    height: "1000px",
+    display: "flex",
+    flexDirection: "row", // Side-by-side layout
+    width: "100%",
+    height: "100vh", // Fill the viewport height
+    alignItems: "stretch", // Stretch children to fill the height
   };
 
-  const blackBoxContainerStyle = {
-    flex: 1, // take up 1 fraction of the space
-    marginRight: "10px", // give it a small margin so it doesn't touch the ThreeD component
-    height: "800px",
+  // Define the left side container that will hold both instruction and question components
+  const leftContainerStyle = {
+    display: "flex",
+    flexDirection: "column", // Children will be laid out vertically
+    width: "30%", // Adjust width as needed
+    borderRight: "2px solid black", // Add border to separate from the Unity component
   };
 
+  // Define styles for the instruction box and question box
+  const instructionBoxStyle = {
+    flexGrow: 1, // Allow it to grow and fill the space
+    overflow: "auto", // Add scroll if content is too long
+    // Add additional styling here
+  };
+
+  const questionBoxStyle = {
+    flexGrow: 1, // Allow it to grow and fill the space
+    // Add additional styling here
+  };
+
+  // Adjust the ThreeD container style
+  // Adjust the ThreeD container style
   const threeDContainerStyle = {
-    flex: 3, // take up 3 fractions of the space (3 times more than the BlackBox)
-    height: "800px  ",
+    flexGrow: 2, // Unity WebGL will take up the remaining space after the left side
+    width: "calc(70% - 20px)", // Subtract the desired margin from the width
+    marginRight: "20px", // Add a margin to the right of the Unity component
   };
 
   return (
     <div style={containerStyle}>
-      <div style={blackBoxContainerStyle}>
-        <BlackBoxWithButton />
+      <div style={leftContainerStyle}>
+        <div style={instructionBoxStyle}>
+          {/* Place the instruction components here */}
+        </div>
+        <div style={questionBoxStyle}>
+          {/* Here we call the function to render our question */}
+
+          <BlackBoxWithButton
+            unityData={unityData}
+            sendToUnity={sendToUnityRef.current}
+          />
+        </div>
       </div>
       <div style={threeDContainerStyle}>
-        <ThreeD />
+        <ThreeD
+          onUnityData={handleUnityData}
+          onSendMessageToUnity={getSendMessageToUnity}
+        />
       </div>
     </div>
   );
