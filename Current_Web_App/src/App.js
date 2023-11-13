@@ -15,6 +15,8 @@ import PrivateRoute from "./auth/PrivateRout";
 import FeedbackEval from "./Components/UI/FeedbackEval/FeedbackEval";
 import Intra from "./Components/UI/Invest/Intra/Intra";
 
+
+
 function App() {
     return (
         <Provider store={store}>
@@ -33,6 +35,8 @@ function App() {
                     <Route exact path="/diagnosis" element={<PrivateRoute><Diagnosis/></PrivateRoute>}/>
                     <Route exact path="/feedback" element={<PrivateRoute><FeedbackEval/></PrivateRoute>}/>
                     <Route exact path="/intra" element={<PrivateRoute><Intra/></PrivateRoute>}/>
+                   
+
                     {/* <Route exact path="/adminSignIn" element={<PrivateRoute><AdminSignIn/></PrivateRoute>}/> */}
                     {/* <Route exact path="/enterCase" element={<PrivateRoute><Invest/></PrivateRoute>}/> */}
 
