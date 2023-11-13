@@ -20,6 +20,8 @@ const Invest = () => {
   const { bleedingValue } = useSelector((state) => state.examination);
   const { submitedHardTissueTools } = useSelector((state) => state.examination);
   const { selectedPerodentalTools } = useSelector((state) => state.examination);
+  const [isGuidelinesRead, setIsGuidelinesRead] = useState(false);
+  const [isProceedClicked, setIsProceedClicked] = useState(false);
 
   const navigate = useNavigate();
   const handleClick1 = () => {
@@ -51,64 +53,36 @@ const Invest = () => {
     extra: false,
   });
 
-  const onClickHandler2 = () => {
-    console.log("button clicked");
-    setexam_inv({
-      intra: false,
-      extra: true,
-      help: false,
-    });
-    const btn1 = document.getElementById("help");
-    btn1.style.backgroundColor = "rgb(9, 105, 239)";
-    const btn2 = document.getElementById("intra");
-    btn2.style.backgroundColor = "rgb(9, 105, 239)";
-    const btn3 = document.getElementById("extra");
-    btn3.style.backgroundColor = "rgb(95,129,182)";
-  };
+    // Function to handle checkbox change
+    const handleCheckboxChange = (event) => {
+      setIsGuidelinesRead(event.target.checked);
+    };
 
-  const onClickHandler4 = () => {
-    console.log("button clicked");
-    setexam_inv({
-      intra: true,
-      extra: false,
-      help: false,
-    });
-    const btn1 = document.getElementById("help");
-    btn1.style.backgroundColor = "rgb(9, 105, 239)";
-    const btn2 = document.getElementById("intra");
-    btn2.style.backgroundColor = "rgb(95,129,182)";
-    const btn3 = document.getElementById("extra");
-    btn3.style.backgroundColor = "rgb(9, 105, 239)";
-  };
 
-  // const onClickHandler5= () => {
-  //   setexam_inv({
-  //       intra: false,
-  //       extra: false,
-  //       help: true
-  //       help: false
-  //   })
-  //   const btn1 = document.getElementById('help');
-  //   btn1.style.backgroundColor = 'rgb(9, 105, 239)';
-  //   const btn2 = document.getElementById('intra');
-  //   btn2.style.backgroundColor = 'rgb(95,129,182)';
-  //   const btn3 = document.getElementById('extra');
-  //   btn3.style.backgroundColor =  'rgb(9, 105, 239)';
-  // };
+    const onClickHandler4 = () => {
+      console.log("button clicked");
+      setexam_inv({
+        intra: true,
+        extra: false,
+        help: false,
+      });
 
-  const onClickHandler5 = () => {
-    setexam_inv({
-      intra: false,
-      extra: false,
-      help: true,
-    });
-    const btn1 = document.getElementById("help");
-    btn1.style.backgroundColor = "rgb(95,129,182)";
-    const btn2 = document.getElementById("intra");
-    btn2.style.backgroundColor = "rgb(9, 105, 239)";
-    const btn3 = document.getElementById("extra");
-    btn3.style.backgroundColor = "rgb(9, 105, 239)";
-  };
+      setIsProceedClicked(true);
+    
+      // Safely attempt to access and modify button styles
+      const btn1 = document.getElementById("help");
+      const btn2 = document.getElementById("intra");
+      const btn3 = document.getElementById("extra");
+    
+      if (btn1 && btn2 && btn3) {
+        btn1.style.backgroundColor = "rgb(9, 105, 239)";
+        btn2.style.backgroundColor = "rgb(95,129,182)";
+        btn3.style.backgroundColor = "rgb(9, 105, 239)";
+      }
+    };
+    
+
+
 
   if (exam_inv.help && !exam_inv.intra && !exam_inv.extra) {
     const btn1 = document.getElementById("help");
@@ -153,41 +127,8 @@ const Invest = () => {
         </div>
       </div>
       <div className="exmTopic">Examination</div>
-      <div
-        className="contOne"
-        style={{ display: "flex", justifyContent: "center", padding: "20px" }}
-      >
-        <ButtonGroup
-          size="large"
-          aria-label="large button group"
-          style={{ borderRadius: "10px", overflow: "hidden" }}
-        >
-          <button
-            id="extra"
-            type="button"
-            className="btn btn-primary custom-btn1"
-            onClick={() => onClickHandler2()}
-          >
-            <i className="fas fa-tooth"></i> Extra Oral
-          </button>
-          <button
-            id="intra"
-            type="button"
-            className="btn btn-primary custom-btn1"
-            onClick={() => onClickHandler4()}
-          >
-            <i className="fas fa-mouth"></i> Intra Oral
-          </button>
-          <button
-            id="help"
-            type="button"
-            className="btn btn-primary custom-btn1"
-            onClick={() => onClickHandler5()}
-          >
-            <i className="fas fa-info-circle"></i> Guide
-          </button>
-        </ButtonGroup>
-      </div>
+{/* Add a div for the checkbox and proceed button */}
+
       <div className="contThr">{exam_inv.intra ? <Intra /> : null}</div>
       <div className="contFr">
         {exam_inv.extra ? <Extra /> : null}
@@ -201,6 +142,45 @@ const Invest = () => {
           ) : null}
         </div>
       </div>
+      {!isProceedClicked && (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      margin: "20px",
+    }}
+  >
+    {/* Checkbox and Proceed button */}
+    <label style={{ margin: "20px" }}>
+      <input
+        type="checkbox"
+        checked={isGuidelinesRead}
+        onChange={handleCheckboxChange}
+      />
+      {" "}I have read the guidelines
+    </label>
+
+    <button
+      id="proceed"
+      type="button"
+      className="btn btn-primary custom-btn1"
+      disabled={!isGuidelinesRead}
+      onClick={() => onClickHandler4()}
+      style={{
+        backgroundColor: isGuidelinesRead ? "#095af0" : "gray",
+        color: "white",
+        padding: "10px 20px",
+        border: "none",
+        borderRadius: "5px",
+        cursor: isGuidelinesRead ? "pointer" : "default",
+        marginBottom: "20px",
+      }}
+    >
+      PROCEED
+    </button>
+  </div>
+)}
     </div>
   );
 };

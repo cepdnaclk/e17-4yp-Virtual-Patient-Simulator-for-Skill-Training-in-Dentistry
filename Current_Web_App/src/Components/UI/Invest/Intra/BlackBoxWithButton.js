@@ -48,7 +48,9 @@ const CASE1_QUESTIONS = {
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(13);
+
+  const [step, setStep] = useState(-1);
+
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -114,19 +116,19 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     "Peri-apical infection": false,
   });
   const [instruction, setInstruction] = useState(
-    "Conduct the EXTRA ORAL VIEW EXAMINATION"
+    "EXTRA ORAL VIEW EXAMINATION"
   );
   const [examination, setExamination] = useState("");
 
   const [questionMessage, setQuestionMessage] = useState(
-    "Patient looks fit and healthy"
+    "Since Patient looks fit and healthy , please click Enter INTRA ORAL View button to proceed with the rest of the examination."
   ); // New state to hold the question message
 
   // Effect hook to listen for changes in unityData
   useEffect(() => {
     console.log("Unity data received in BlackBoxWithButton:", unityData); // Add this line for debugging
     if (unityData === "MessageFromUnity") {
-      setQuestionMessage("Patient looks fit and healthy");
+      
       // setShowQuestion(true);
       setInstruction("INTRA ORAL VIEW EXAMINATION");
       setExamination("Periodontal Screening");
@@ -136,7 +138,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     }
     if (unityData === "Tool tray toggled: Active") {
       setShowToolTrayQuestion(true); // Show the question when this message is received
-    }
+      setStep(0);
+        }
   }, [unityData]);
 
   // Callback function to be passed to DentalChart
@@ -651,13 +654,17 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       setCorrectAnswerMessage("");
     }, 3000);
 
-    if (step ==15) {
+
+    if (step ===15) {
+
       setButtonText("Finish");
     }
     // Show review page when "Finish" button is clicked
     if (step === 15 && buttonText === "Finish") {
+
       const finalScore = totalScore + (scoreData ? scoreData.mark : 0);
       navigate('/feedback', { state: { finalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
+
       return; // Exit the function to prevent further execution
     }
   
@@ -719,7 +726,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
               {renderProcedureNameQuestion()}{" "}
               {/* Call the function to render the input field */}
             </>
-          ) : step === 0 && !showToolTrayQuestion ? (
+          ) : step === (-1 || 0) && !showToolTrayQuestion ? (
             // If step is 0, display the default question message
             <p>{questionMessage}</p>
           ) : showToolTrayQuestion ? (
@@ -848,9 +855,12 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
         </div>
       </div>
-      <button style={buttonStyle} onClick={handleButtonClick}>
-        {buttonText}
-    </button>
+
+      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1}>
+  {buttonText}
+</button>
+
+
       <div>
         
     {correctAnswerMessage && <p style={messageBoxDynamicStyle}>{correctAnswerMessage}</p>}
