@@ -48,7 +48,7 @@ const CASE1_QUESTIONS={
   15: "What factors contributed to determine the prognosis of the tooth 17?",
 };
 
-const BlackBoxWithButton = ({ onFinish,unityData,sendMessageToUnity}) => {
+const BlackBoxWithButton = ({ unityData,sendMessageToUnity}) => {
   const [buttonText, setButtonText] = useState("Submit");
   const [step, setStep] = useState(0);
   const procedureNameInputRef = useRef(null);
@@ -58,7 +58,6 @@ const BlackBoxWithButton = ({ onFinish,unityData,sendMessageToUnity}) => {
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
   const [selectedPrognosis, setSelectedPrognosis] = useState(""); // Initial value can be an empty string or a default value
   const [selectedTooth, setSelectedTooth] = useState("");
-  const [showReviewPage, setShowReviewPage] = useState(false);
   const [firstAttemptAnswers, setFirstAttemptAnswers] = useState({});
 
 // Inside your component
@@ -66,11 +65,7 @@ const navigate = useNavigate();
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
   };
-  const handleFinish = () => {
-    if (onFinish) {
-      onFinish();
-    }
-  };
+
 
    const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
