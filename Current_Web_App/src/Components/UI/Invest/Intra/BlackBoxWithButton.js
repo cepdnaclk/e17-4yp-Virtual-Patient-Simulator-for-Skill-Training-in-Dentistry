@@ -48,9 +48,7 @@ const CASE1_QUESTIONS = {
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
-
-  const [step, setStep] = useState(-1);
-
+  const [step, setStep] = useState(7);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,6 +57,14 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [selectedPrognosis, setSelectedPrognosis] = useState(""); // Initial value can be an empty string or a default value
   const [selectedTooth, setSelectedTooth] = useState("");
   const [firstAttemptAnswers, setFirstAttemptAnswers] = useState({});
+  const [marks, setMarks] = useState({ mark1: null, mark2: null });
+  const [instructionsText, setInstructionsText] = useState(
+    `1. Scroll down and find the dental chart.\n` +
+    `2. Click the "Enter Intra Oral View" button.\n` +
+    `3. Press "1" to use the dental mirror tool.\n` +
+    `4. By observing the intra-oral view, mark the dental chart accordingly.\n` +
+    `5. Submit your assessment.`
+  );
 
   // Inside your component
   const navigate = useNavigate();
@@ -133,13 +139,19 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
   // Add a new state for the selected force
   const [selectedForce, setSelectedForce] = useState("");
+
+  const handleMarks = (mark1, mark2) => {
+    setMarks({ mark1, mark2 });
+    // Additional code to test the received data (e.g., logging it to the console)
+    console.log(`Received marks: mark1 = ${mark1}, mark2 = ${mark2}`);
+  };
   // Effect hook to listen for changes in unityData
   useEffect(() => {
     console.log("Unity data received in BlackBoxWithButton:", unityData); // Add this line for debugging
     if (unityData === "MessageFromUnity") {
 
       // setShowQuestion(true);
-      setInstruction("INTRA ORAL VIEW EXAMINATION");
+      setInstruction("INTRA ORAL EXAMINATION");
       setExamination("Periodontal Screening");
       setQuestionMessage(
         "Press The TOOL TRAY VIEW button to see the dental tools"
@@ -154,8 +166,10 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   // Callback function to be passed to DentalChart
   const handleScoreData = (score, totalCorrectAnswers) => {
     setScoreData({ score, totalCorrectAnswers });
+    setStep(currentStep => currentStep + 1);
   };
   // Function to handle checkbox changes
+  
 
   const handleCheckboxChange = (option) => {
     console.log(`handleCheckboxChange called with option: ${option}`);
@@ -672,17 +686,13 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       setCorrectAnswerMessage("");
     }, 3000);
 
-
     if (step === 15) {
 
       setButtonText("Finish");
     }
     // Show review page when "Finish" button is clicked
     if (step === 15 && buttonText === "Finish") {
-
-      const finalScore = totalScore + (scoreData ? scoreData.mark : 0);
-      navigate('/feedback', { state: { finalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
-
+      navigate('/feedback', { state: { totalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
       return; // Exit the function to prevent further execution
     }
 
@@ -699,11 +709,18 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         switch (nextStep) {
           case 4:
             setExamination("Soft Tissue Assessment");
-            setQuestionMessage("Normal in color and texture");
+            setQuestionMessage("It looks normal in color and texture , Optional : You could futher verify it by having a look at the INTRA ORAL View");
+            setButtonText("Next");
             break;
           case 5:
             setExamination("Hard Tissue Assessment");
+            setButtonText("Submit");
             break;
+            
+          case 6:
+                setQuestionMessage("")
+             
+                break;
           case 10:
             setInstruction("Investigation");
             setExamination("");
@@ -761,23 +778,25 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             // When step is 2, you can add the new components or logic here for future additions
             <div>{renderCheckBoxQuestion()}</div>
           )}
-          {step === 6 && (
-            <div>
-              <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
-            </div>
-          )}
-          {step === 7 && (
-            <div>
-              <Test></Test>
-            </div>
-          )}
-          {/* Possibly render the score data */}
-          {scoreData && (
-            <div>
-              User's Score: {scoreData.score} out of{" "}
-              {scoreData.totalCorrectAnswers}
-            </div>
-          )}
+{step === 6 && (
+        <div>
+          {/* Render the instructions text */}
+          <div className="instructions">
+            {instructionsText.split('\n').map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
+          </div>
+
+          {/* DentalChart component */}
+          <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
+        </div>
+      )}
+        {step === 7 && (
+  <div>
+    <Test onSubmit={handleMarks} />
+  </div>
+)}
+
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
@@ -873,11 +892,9 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
         </div>
       </div>
-
-      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1}>
-        {buttonText}
-      </button>
-
+      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1 || step===6}>
+  {buttonText}
+</button>
 
       <div>
 
