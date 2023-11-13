@@ -32,7 +32,7 @@ const answer = {
   },
 };
 
-const DentalChart = () => {
+const DentalChart = ({ onScoreSubmit }) => {
   const [toothSelections, setToothSelections] = useState({});
   const [allToothSelections, setAllToothSelections] = useState({});
 
@@ -96,7 +96,9 @@ const DentalChart = () => {
       answer
     );
     console.log(`The user's score is ${score} out of ${totalCorrectAnswers}.`);
-    // You can do something with the score here, like updating the state or showing it in the UI
+    
+    // Call the onScoreSubmit callback with the score data
+    onScoreSubmit(score, totalCorrectAnswers);
   };
 
   // Function to decide if it's a Tooth or MTooth based on number

@@ -27,7 +27,7 @@ const CORRECT_ANSWERS = {
   14: "Poor",
   15: ["Pulpal status", "Caries extension", "Peri-apical infection"],
 };
-const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
+const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
   const [step, setStep] = useState(0);
   const procedureNameInputRef = useRef(null);
@@ -41,7 +41,7 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
   };
-
+  const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
   const [attempts, setAttempts] = useState({});
   const [scores, setScores] = useState({});
@@ -111,10 +111,15 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
         "Press The TOOL TRAY VIEW button to see the dental tools"
       );
     }
-    if (unityData === "ToolTrayForPeriodontalScreening") {
+    if (unityData === "Tool tray toggled: Active") {
       setShowToolTrayQuestion(true); // Show the question when this message is received
     }
   }, [unityData]);
+
+    // Callback function to be passed to DentalChart
+    const handleScoreData = (score, totalCorrectAnswers) => {
+      setScoreData({ score, totalCorrectAnswers });
+    };
   // Function to handle checkbox changes
   const handleCheckboxChange = (option) => {
     if (step === 2) {
@@ -150,6 +155,9 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
       });
     }
   };
+
+
+
 
   const renderRadioImageQuestion = () => {
     if (step === 3) {
@@ -505,6 +513,12 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
   };
 
   const handleButtonClick = () => {
+      // Add a call to sendMessageToUnity here
+      console.log("submit");
+  if (sendMessageToUnity) {
+    console.log("submit");
+    sendMessageToUnity("ToggleToolTray");
+  }
     // Directly proceed to the next step for steps 4, 6, and 7
     if (step === 4 || step === 6 || step === 7 || step === 12) {
       proceedToNextStep();
@@ -623,9 +637,15 @@ const BlackBoxWithButton = ({ unityData, sendToUnity }) => {
           )}
           {step === 6 && (
             <div>
-              <DentalChart></DentalChart>
+             <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
             </div>
           )}
+          {/* Possibly render the score data */}
+      {scoreData && (
+        <div>
+          User's Score: {scoreData.score} out of {scoreData.totalCorrectAnswers}
+        </div>
+      )}
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
