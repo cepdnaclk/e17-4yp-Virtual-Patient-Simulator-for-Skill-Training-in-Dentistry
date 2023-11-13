@@ -41,7 +41,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
   };
-
+  const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
   const [attempts, setAttempts] = useState({});
   const [scores, setScores] = useState({});
@@ -115,6 +115,11 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       setShowToolTrayQuestion(true); // Show the question when this message is received
     }
   }, [unityData]);
+
+    // Callback function to be passed to DentalChart
+    const handleScoreData = (score, totalCorrectAnswers) => {
+      setScoreData({ score, totalCorrectAnswers });
+    };
   // Function to handle checkbox changes
   const handleCheckboxChange = (option) => {
     if (step === 2) {
@@ -632,9 +637,15 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           )}
           {step === 6 && (
             <div>
-              <DentalChart></DentalChart>
+             <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
             </div>
           )}
+          {/* Possibly render the score data */}
+      {scoreData && (
+        <div>
+          User's Score: {scoreData.score} out of {scoreData.totalCorrectAnswers}
+        </div>
+      )}
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
