@@ -1,11 +1,11 @@
 import React, { useState, useRef } from "react";
 import ThreeD from "../../resources/ThreeD";
 import BlackBoxWithButton from "./BlackBoxWithButton";
-import { useNavigate } from 'react-router-dom';
+
 
 
 const CombinedComponent = () => {
-  let navigate = useNavigate();
+  
 
   const [unityData, setUnityData] = useState(null);
   const sendToUnityRef = useRef(null);
@@ -17,9 +17,7 @@ const CombinedComponent = () => {
   };
   
 
-  const goToReviewPage = () => {
-    navigate('/review');
-  };
+
 
   const getSendMessageToUnity = (sendMessage) => {
     sendToUnityRef.current = sendMessage;
@@ -73,11 +71,7 @@ const CombinedComponent = () => {
           {/* Here we call the function to render our question */}
  {isUnityReady && <BlackBoxWithButton unityData={unityData} sendToUnity={sendToUnityRef.current} />}
 
-          <BlackBoxWithButton
-            unityData={unityData}
-            sendToUnity={sendToUnityRef.current}
-            onFinish={goToReviewPage} 
-          />
+         
           
          
         </div>
