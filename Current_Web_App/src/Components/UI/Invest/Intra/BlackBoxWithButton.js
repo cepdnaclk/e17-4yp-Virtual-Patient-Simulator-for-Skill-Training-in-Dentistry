@@ -10,21 +10,22 @@ import image4 from "./images/image4.jpg";
 import RadioTextQuestion from "./RadioTextQuestion";
 import img3 from "../../../../Images/200.png";
 import img4 from "../../../../Images/80.png";
+import DentalChart from "../../../Dental Charts/DentalChart";
 
 // Define correct answers for each step
 const CORRECT_ANSWERS = {
-  0: ['Mouth Mirror', 'CPI probe'],
-  1: 'Basic Periodontal Examination', // or "BPE"
-  2: ['A colour band from 3.5mm to 5.5mm', 'Ball ended tip'],
-  3: 'Diagram2', // Assuming the value for the second diagram is 'Diagram2'
-  5: ['Mouth Mirror', 'Periodontal probe'],
-  8: ['Periodontal probe'],
-  9: '78%',
-  10: ['Radiographs', 'Sensibility testing'],
-  11: 'IOPA & DPT',
-  13:'17 & 27',
-  14: 'Poor',
-  15: ['Pulpal status', 'Caries extension', 'Peri-apical infection'],
+  0: ["Mouth Mirror", "CPI probe"],
+  1: "Basic Periodontal Examination", // or "BPE"
+  2: ["A colour band from 3.5mm to 5.5mm", "Ball ended tip"],
+  3: "Diagram2", // Assuming the value for the second diagram is 'Diagram2'
+  5: ["Mouth Mirror", "Periodontal probe"],
+  8: ["Periodontal probe"],
+  9: "78%",
+  10: ["Radiographs", "Sensibility testing"],
+  11: "IOPA & DPT",
+  13: "17 & 27",
+  14: "Poor",
+  15: ["Pulpal status", "Caries extension", "Peri-apical infection"],
 };
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
@@ -34,8 +35,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedDiagram, setSelectedDiagram] = useState("");
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
-  const [selectedPrognosis, setSelectedPrognosis] = useState(''); // Initial value can be an empty string or a default value
-  const [selectedTooth, setSelectedTooth] = useState('');
+  const [selectedPrognosis, setSelectedPrognosis] = useState(""); // Initial value can be an empty string or a default value
+  const [selectedTooth, setSelectedTooth] = useState("");
 
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
@@ -55,7 +56,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     { src: image4, value: "Diagram4" },
   ];
   const [answers, setAnswers] = useState({
-    "Tweezer": false,
+    Tweezer: false,
     "Mouth Mirror": false,
     "Sharp probe": false,
     "Naber’s probe": false,
@@ -77,7 +78,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       "Always only one colour band": false,
     });
   const [investigations, setInvestigations] = useState({
-    "Radiographs": false,
+    Radiographs: false,
     "3D imaging": false,
     "Sensibility testing": false,
     "Hematological investigations": false,
@@ -135,15 +136,13 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         console.log(`Option changed: ${option}, New state:`, newAnswers);
         return newAnswers;
       });
-    }
-    else if (step === 15) {
+    } else if (step === 15) {
       setPrognosis((prevAnswers) => {
         const newAnswers = { ...prevAnswers, [option]: !prevAnswers[option] };
         console.log(`Option changed: ${option}, New state:`, newAnswers);
         return newAnswers;
       });
-    }
-    else {
+    } else {
       setAnswers((prevAnswers) => {
         const newAnswers = { ...prevAnswers, [option]: !prevAnswers[option] };
         console.log(`Option changed: ${option}, New state:`, newAnswers);
@@ -160,13 +159,31 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       return (
         <div>
           <p>Select the diagram which denotes code 3.</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
             {diagramOptions.map((image, index) => (
-              <div key={index} style={{ flexBasis: '50%', textAlign: 'center', padding: '10px' }}>
+              <div
+                key={index}
+                style={{
+                  flexBasis: "50%",
+                  textAlign: "center",
+                  padding: "10px",
+                }}
+              >
                 <img
                   src={image.src}
                   alt={`Diagram ${index + 1}`}
-                  style={{ width: '65%', height: 'auto', objectFit: 'contain', maxWidth: '300px' }}
+                  style={{
+                    width: "65%",
+                    height: "auto",
+                    objectFit: "contain",
+                    maxWidth: "300px",
+                  }}
                 />
                 <div>
                   <input
@@ -187,9 +204,6 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     return null;
   };
 
-
-
-
   const renderRadioQuestion = () => {
     if (step === 11) {
       const radiographOptions = [
@@ -207,15 +221,10 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           onValueChange={handleImageSelect} // Reuse the same handler if appropriate, or create a new one if needed
         />
       );
-    }  if (step === 13) {
-      const toothOptions = [
-        "45",
-        "11 & 21",
-        "17",
-        "24 & 35",
-        "17 & 27",
-      ];
-  
+    }
+    if (step === 13) {
+      const toothOptions = ["45", "11 & 21", "17", "24 & 35", "17 & 27"];
+
       return (
         <RadioTextQuestion
           question="Select the tooth/teeth you would proceed sensibility recording?"
@@ -224,14 +233,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           onValueChange={setSelectedTooth}
         />
       );
-    }
-    else if (step === 14) {
-      const prognosisOptions = [
-        "Poor",
-        "Questionable",
-        "Good",
-        "Hopeless",
-      ];
+    } else if (step === 14) {
+      const prognosisOptions = ["Poor", "Questionable", "Good", "Hopeless"];
 
       return (
         <RadioTextQuestion
@@ -243,11 +246,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       );
     }
 
-
     return null;
   };
-
-
 
   // Handle radio button selection
   const handleImageSelect = (value) => {
@@ -258,7 +258,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     console.log("handleProcedureNameChange called"); // Debug statement 1
     console.log("Current input value:", event.target.value); // Debug statement 2
     setProcedureName(event.target.value);
-};
+  };
 
   useEffect(() => {
     switch (step) {
@@ -266,7 +266,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       case 5:
       case 8:
         setAnswers({
-          "Tweezer": false,
+          Tweezer: false,
           "Mouth Mirror": false,
           "Sharp probe": false,
           "Naber’s probe": false,
@@ -293,7 +293,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         break;
       case 10:
         setInvestigations({
-          "Radiographs": false,
+          Radiographs: false,
           "3D imaging": false,
           "Sensibility testing": false,
           "Hematological investigations": false,
@@ -481,7 +481,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         userAnswers = investigations;
         break;
       case 13:
-          return selectedTooth === CORRECT_ANSWERS[currentStep];
+        return selectedTooth === CORRECT_ANSWERS[currentStep];
       case 14:
         return selectedPrognosis === CORRECT_ANSWERS[currentStep];
       case 15:
@@ -490,18 +490,22 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       default:
         userAnswers = answers;
     }
-  
+
     console.log(`Checking answers for step ${currentStep}`);
-    console.log('User answers:', userAnswers);
-    console.log('Correct answers:', CORRECT_ANSWERS[currentStep]);
-  
+    console.log("User answers:", userAnswers);
+    console.log("Correct answers:", CORRECT_ANSWERS[currentStep]);
+
     if (Array.isArray(CORRECT_ANSWERS[currentStep])) {
-      return CORRECT_ANSWERS[currentStep].every(answer => userAnswers[answer]);
+      return CORRECT_ANSWERS[currentStep].every(
+        (answer) => userAnswers[answer]
+      );
     } else {
-      return selectedDiagram === CORRECT_ANSWERS[currentStep] || procedureName === CORRECT_ANSWERS[currentStep];
+      return (
+        selectedDiagram === CORRECT_ANSWERS[currentStep] ||
+        procedureName === CORRECT_ANSWERS[currentStep]
+      );
     }
   };
-  
 
   const handleButtonClick = () => {
       // Add a call to sendMessageToUnity here
@@ -526,12 +530,19 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       proceedToNextStep();
     } else {
       setAttempts({ ...attempts, [step]: currentAttempts + 1 });
-      if (currentAttempts < 2) { // Allow 3 attempts, so check if the current attempt is less than 2
+      if (currentAttempts < 2) {
+        // Allow 3 attempts, so check if the current attempt is less than 2
         setCorrectAnswerMessage("Wrong answer! Try again.");
       } else {
         setScores({ ...scores, [step]: (scores[step] || 0) - 5 });
         setTotalScore((prevTotalScore) => prevTotalScore - 5);
-        setCorrectAnswerMessage(`Incorrect. The correct answer is: ${Array.isArray(CORRECT_ANSWERS[step]) ? CORRECT_ANSWERS[step].join(', ') : CORRECT_ANSWERS[step]}`);
+        setCorrectAnswerMessage(
+          `Incorrect. The correct answer is: ${
+            Array.isArray(CORRECT_ANSWERS[step])
+              ? CORRECT_ANSWERS[step].join(", ")
+              : CORRECT_ANSWERS[step]
+          }`
+        );
         proceedToNextStep();
       }
     }
@@ -566,12 +577,13 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             setInstruction("Radiographs");
             setExamination("");
             break;
-            case 13:
-              setInstruction("Sensibility recordings");
-              break;
+          case 13:
+            setInstruction("Sensibility recordings");
+            break;
           default:
             break;
-        } if (nextStep === 14) {
+        }
+        if (nextStep === 14) {
           setInstruction("Prognosis");
         }
 
@@ -582,7 +594,6 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       alert(`Simulation complete! Your total score is: ${totalScore}`);
     }
   };
-
 
   return (
     <div style={boxStyle}>
@@ -619,6 +630,11 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             // When step is 2, you can add the new components or logic here for future additions
             <div>{renderCheckBoxQuestion()}</div>
           )}
+          {step === 6 && (
+            <div>
+              <DentalChart></DentalChart>
+            </div>
+          )}
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
@@ -641,14 +657,12 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             </div>
           )}
           {step === 9 && (
-
             // When step is 2, you can add the new components or logic here for future additions
             <div>
               <div
                 className="imageContainer"
                 style={{ maxHeight: "100%", maxWidth: "100%" }}
               >
-
                 <img
                   src={imgplaqueChart}
                   alt="description"
@@ -673,14 +687,18 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "1px",
-                overflowY: 'auto',
-                paddingTop: '1px', // Reduced top padding
-                paddingRight: '10px',
-                paddingBottom: '1px',
-                paddingLeft: '10px',
+                overflowY: "auto",
+                paddingTop: "1px", // Reduced top padding
+                paddingRight: "10px",
+                paddingBottom: "1px",
+                paddingLeft: "10px",
               }}
             >
-              <div style={{ textAlign: 'center', width: '100%', marginTop: '0' }}> {/* Removed top margin from the first image container */}
+              <div
+                style={{ textAlign: "center", width: "100%", marginTop: "0" }}
+              >
+                {" "}
+                {/* Removed top margin from the first image container */}
                 <img
                   src={img3}
                   alt="IOPA 17"
@@ -690,9 +708,9 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
                     objectFit: "contain",
                   }}
                 />
-                <p style={{ fontSize: 'smaller' }}>IOPA 17</p>
+                <p style={{ fontSize: "smaller" }}>IOPA 17</p>
               </div>
-              <div style={{ textAlign: 'center', width: '100%' }}>
+              <div style={{ textAlign: "center", width: "100%" }}>
                 <img
                   src={img4}
                   alt="DPT"
@@ -702,14 +720,14 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
                     objectFit: "contain",
                   }}
                 />
-                <p style={{ fontSize: 'smaller', marginTop: '5px' }}>DPT</p> {/* Label for the second image */}
+                <p style={{ fontSize: "smaller", marginTop: "5px" }}>DPT</p>{" "}
+                {/* Label for the second image */}
               </div>
             </div>
           )}
           {step === 13 && <div>{renderRadioQuestion()}</div>}
           {step === 14 && <div>{renderRadioQuestion()}</div>}
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
-
         </div>
       </div>
 

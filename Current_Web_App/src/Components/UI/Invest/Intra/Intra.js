@@ -166,7 +166,7 @@ const Intra = () => {
                     margin: "20px 0",
                   }}
                 >
-                  <ButtonGroup
+                  {/* <ButtonGroup
                     size="lg"
                     className="btnGrp"
                     horizontal
@@ -206,7 +206,7 @@ const Intra = () => {
                     {/* <Button onClick={() => onClickHandler6()} className="btnGrp stylish-button" id='ging'>
       Gingival Assessment
     </Button> */}
-                  </ButtonGroup>
+                  {/* </ButtonGroup> */}
                 </div>
                 <div
                   className="softcard"
@@ -250,7 +250,7 @@ const Intra = () => {
                     margin: "20px 0",
                   }}
                 >
-                  <ButtonGroup
+                  {/* <ButtonGroup
                     size="lg"
                     className="btnGrp"
                     horizontal
@@ -287,10 +287,8 @@ const Intra = () => {
                     >
                       Hard Tissue Assessment
                     </Button>
-                    {/* <Button onClick={() => onClickHandler6()} className="btnGrp stylish-button" id='ging'>
-      Gingival Assessment
-    </Button> */}
-                  </ButtonGroup>
+                    
+                  </ButtonGroup> */}
                 </div>
                 <div className="softcard">
                   <Card>
@@ -328,7 +326,7 @@ const Intra = () => {
                     margin: "20px 0",
                   }}
                 >
-                  <ButtonGroup
+                  {/* <ButtonGroup
                     size="lg"
                     className="btnGrp"
                     horizontal
@@ -365,10 +363,8 @@ const Intra = () => {
                     >
                       Hard Tissue Assessment
                     </Button>
-                    {/* <Button onClick={() => onClickHandler6()} className="btnGrp stylish-button" id='ging'>
-      Gingival Assessment
-    </Button> */}
-                  </ButtonGroup>
+                    
+                  </ButtonGroup> */}
                 </div>
                 <div
                   className="softcard"
@@ -413,7 +409,7 @@ const Intra = () => {
                     margin: "20px 0",
                   }}
                 >
-                  <ButtonGroup
+                  {/* <ButtonGroup
                     size="lg"
                     className="btnGrp"
                     horizontal
@@ -450,7 +446,7 @@ const Intra = () => {
                     >
                       Hard Tissue Assessment
                     </Button>
-                  </ButtonGroup>
+                  </ButtonGroup> */}
                 </div>
               </Grid>
             </Grid>
@@ -517,7 +513,7 @@ const Intra = () => {
                     margin: "20px 0",
                   }}
                 >
-                  <ButtonGroup
+                  {/* <ButtonGroup
                     size="lg"
                     className="btnGrp"
                     horizontal
@@ -554,10 +550,8 @@ const Intra = () => {
                     >
                       Hard Tissue Assessment
                     </Button>
-                    {/* <Button onClick={() => onClickHandler6()} className="btnGrp stylish-button" id='ging'>
-      Gingival Assessment
-    </Button> */}
-                  </ButtonGroup>
+                    
+                  </ButtonGroup> */}
                 </div>
               </Grid>
             </Grid>
