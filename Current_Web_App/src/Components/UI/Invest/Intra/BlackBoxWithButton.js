@@ -10,10 +10,8 @@ import image4 from "./images/image4.jpg";
 import RadioTextQuestion from "./RadioTextQuestion";
 import img3 from "../../../../Images/200.png";
 import img4 from "../../../../Images/80.png";
-import { useNavigate } from 'react-router-dom';
-
-
-
+import { useNavigate } from "react-router-dom";
+import Test from "../../../Drawing/Test";
 
 import DentalChart from "../../../Dental Charts/DentalChart";
 
@@ -32,23 +30,23 @@ const CORRECT_ANSWERS = {
   14: "Poor",
   15: ["Pulpal status", "Caries extension", "Peri-apical infection"],
 };
-const CASE1_QUESTIONS={
+const CASE1_QUESTIONS = {
   // Example structure, adjust based on your actual questions
   0: "Select the instruments needed to carry out the periodontal screening",
   1: "What is the name of this procedure?",
   2: "Select the features of the instrument used for the periodontal screening.",
-  3: 'Select the diagram which denotes code 3',
+  3: "Select the diagram which denotes code 3",
   5: "Select the instruments needed to carry out the hard tissue assessment",
   8: "Select the instruments needed to record the plaque score",
   9: "What is the plaq score?",
-  10:"Select the investigation/s you wish to proceed?",
-  11:"What radiographs would you take?",
-  13:"Select the tooth/teeth you would proceed sensibility recording?",
+  10: "Select the investigation/s you wish to proceed?",
+  11: "What radiographs would you take?",
+  13: "Select the tooth/teeth you would proceed sensibility recording?",
   14: "What is the prognosis for tooth 17?",
   15: "What factors contributed to determine the prognosis of the tooth 17?",
 };
 
-const BlackBoxWithButton = ({ unityData,sendMessageToUnity}) => {
+const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
   const [step, setStep] = useState(0);
   const procedureNameInputRef = useRef(null);
@@ -60,14 +58,13 @@ const BlackBoxWithButton = ({ unityData,sendMessageToUnity}) => {
   const [selectedTooth, setSelectedTooth] = useState("");
   const [firstAttemptAnswers, setFirstAttemptAnswers] = useState({});
 
-// Inside your component
-const navigate = useNavigate();
+  // Inside your component
+  const navigate = useNavigate();
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
   };
 
-
-   const [scoreData, setScoreData] = useState(null);
+  const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
   const [attempts, setAttempts] = useState({});
   const [scores, setScores] = useState({});
@@ -142,13 +139,12 @@ const navigate = useNavigate();
     }
   }, [unityData]);
 
-    // Callback function to be passed to DentalChart
-    const handleScoreData = (score, totalCorrectAnswers) => {
-      setScoreData({ score, totalCorrectAnswers });
-    };
+  // Callback function to be passed to DentalChart
+  const handleScoreData = (score, totalCorrectAnswers) => {
+    setScoreData({ score, totalCorrectAnswers });
+  };
   // Function to handle checkbox changes
 
-  
   const handleCheckboxChange = (option) => {
     console.log(`handleCheckboxChange called with option: ${option}`);
     if (step === 2) {
@@ -184,9 +180,6 @@ const navigate = useNavigate();
       });
     }
   };
-
-
-
 
   const renderRadioImageQuestion = () => {
     if (step === 3) {
@@ -361,7 +354,7 @@ const navigate = useNavigate();
   };
   // Render the checkbox question if showToolTrayQuestion is true
   const renderCheckBoxQuestion = () => {
-  console.log("renderCheckBoxQuestion called with step:", step);
+    console.log("renderCheckBoxQuestion called with step:", step);
     if (step === 0 && showToolTrayQuestion) {
       // Render the first set of checkboxes
       return (
@@ -563,13 +556,13 @@ const navigate = useNavigate();
   };
 
   const handleButtonClick = () => {
-   console.log("handleButtonClick called with step:", step);
-      // Add a call to sendMessageToUnity here
-      console.log("submit");
-  if (sendMessageToUnity) {
+    console.log("handleButtonClick called with step:", step);
+    // Add a call to sendMessageToUnity here
     console.log("submit");
-    sendMessageToUnity("ToggleToolTray");
-  }
+    if (sendMessageToUnity) {
+      console.log("submit");
+      sendMessageToUnity("ToggleToolTray");
+    }
     // Directly proceed to the next step for steps 4, 6, and 7
     if (step === 4 || step === 6 || step === 7 || step === 12) {
       proceedToNextStep();
@@ -579,55 +572,55 @@ const navigate = useNavigate();
     console.log(`Step ${step} answer correct:`, correct);
     const currentAttempts = attempts[step] || 0;
 
-// Save first attempt answer
-if (currentAttempts === 0) {
-  let firstAttemptAnswer;
-  switch (step) {
-    case 0:
-      firstAttemptAnswer = answers;
-      break;  
-    case 1:
-      firstAttemptAnswer = procedureName;
-      break;  
-    case 2:
-      firstAttemptAnswer = periodontalScreeningOptions;
-      break;
-    case 3:
-        firstAttemptAnswer = selectedDiagram;
-        break;
-    case 5:
-        firstAttemptAnswer = answers;
-        break;  
-    case 8:
-        firstAttemptAnswer = answers;
-        break;
-    case 9:
-      firstAttemptAnswer = plaqscoreanswers;
-      break;
-    case 10:
-      firstAttemptAnswer = investigations;
-      break;
-    case 11:
-      firstAttemptAnswer = selectedDiagram;
-      break;
-    case 13:
-      firstAttemptAnswer = selectedTooth;
-      break;
-    case 14:
-      firstAttemptAnswer = selectedPrognosis; // Corrected to selectedPrognosis
-      break;
-    case 15:
-      firstAttemptAnswer = prognosis;
-      break;
-    default:
-      firstAttemptAnswer = answers;
-  }
+    // Save first attempt answer
+    if (currentAttempts === 0) {
+      let firstAttemptAnswer;
+      switch (step) {
+        case 0:
+          firstAttemptAnswer = answers;
+          break;
+        case 1:
+          firstAttemptAnswer = procedureName;
+          break;
+        case 2:
+          firstAttemptAnswer = periodontalScreeningOptions;
+          break;
+        case 3:
+          firstAttemptAnswer = selectedDiagram;
+          break;
+        case 5:
+          firstAttemptAnswer = answers;
+          break;
+        case 8:
+          firstAttemptAnswer = answers;
+          break;
+        case 9:
+          firstAttemptAnswer = plaqscoreanswers;
+          break;
+        case 10:
+          firstAttemptAnswer = investigations;
+          break;
+        case 11:
+          firstAttemptAnswer = selectedDiagram;
+          break;
+        case 13:
+          firstAttemptAnswer = selectedTooth;
+          break;
+        case 14:
+          firstAttemptAnswer = selectedPrognosis; // Corrected to selectedPrognosis
+          break;
+        case 15:
+          firstAttemptAnswer = prognosis;
+          break;
+        default:
+          firstAttemptAnswer = answers;
+      }
 
-  setFirstAttemptAnswers(prevAnswers => ({
-    ...prevAnswers,
-    [step]: firstAttemptAnswer
-  }));
-}
+      setFirstAttemptAnswers((prevAnswers) => ({
+        ...prevAnswers,
+        [step]: firstAttemptAnswer,
+      }));
+    }
 
     if (correct) {
       setScores({ ...scores, [step]: (scores[step] || 0) + 5 });
@@ -652,7 +645,7 @@ if (currentAttempts === 0) {
         proceedToNextStep();
       }
     }
- 
+
     // Reset the correct answer message after a delay
     setTimeout(() => {
       setCorrectAnswerMessage("");
@@ -707,7 +700,7 @@ if (currentAttempts === 0) {
       });
     } 
   };
-  
+
   return (
     <div style={boxStyle}>
       <div style={instructionBoxStyle}>
@@ -716,7 +709,6 @@ if (currentAttempts === 0) {
         <p>{examination}</p>
       </div>
 
-     
       {/* Content for question box */}
       <div style={questionBoxStyle}>
         <div>
@@ -745,15 +737,21 @@ if (currentAttempts === 0) {
           )}
           {step === 6 && (
             <div>
-             <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
+              <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
+            </div>
+          )}
+          {step === 7 && (
+            <div>
+              <Test></Test>
             </div>
           )}
           {/* Possibly render the score data */}
-      {scoreData && (
-        <div>
-          User's Score: {scoreData.score} out of {scoreData.totalCorrectAnswers}
-        </div>
-      )}
+          {scoreData && (
+            <div>
+              User's Score: {scoreData.score} out of{" "}
+              {scoreData.totalCorrectAnswers}
+            </div>
+          )}
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
