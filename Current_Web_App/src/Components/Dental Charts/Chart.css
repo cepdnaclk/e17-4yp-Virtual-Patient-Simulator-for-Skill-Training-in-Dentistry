@@ -1,0 +1,51 @@
+.dental-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute; /* or 'fixed' if you want it to stay in place on scroll */
+  top: 190%; /* adjust as necessary */
+  left: 50%; /* adjust as necessary */
+  transform: translate(-50%, -50%); /* centers the element */
+  background-color: aliceblue;
+  padding-top: 30px;
+  /* Add responsive styles as necessary */
+}
+
+.dental-row {
+  display: flex;
+  justify-content: center;
+}
+
+.tooth-container {
+  text-align: center;
+  margin: 5px;
+  position: relative; /* for absolute positioning of tooth numbers */
+}
+
+.tooth-number {
+  position: absolute;
+  width: 100%; /* Ensure the number spans the width of the tooth container */
+  text-align: center;
+}
+
+.top-row .tooth-number {
+  bottom: 100%; /* Place the number below the tooth container */
+}
+
+.bottom-row .tooth-number {
+  top: 80%; /* Place the number above the tooth container */
+}
+
+.chrt-submit-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+
+@media (max-width: 768px) {
+  .dental-row {
+    flex-wrap: wrap;
+  }
+  .tooth-container {
+    flex: 0 0 50%; /* Adjust as necessary for smaller screens */
+  }
+}
