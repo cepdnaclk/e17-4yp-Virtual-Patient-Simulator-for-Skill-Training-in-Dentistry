@@ -1,186 +1,196 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./Tooth.css"; // Assuming Tooth.css is appropriate for MTooth as well
+
+const colorCodes = {
+  Caries: "red",
+  "Restoration (Amalgam)": "blue",
+  "Traumatic Injury": "black",
+  Discoloration: "green",
+};
 
 function MTooth({ toothNumber, onSelectionChange }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [selections, setSelections] = useState({
-    topTrapezoid: null,
-    bottomTrapezoid: null,
-    leftTrapezoid: null,
-    rightTrapezoid: null,
-    centerRectangle: null,
+    topTrapezoid: [],
+    bottomTrapezoid: [],
+    leftTrapezoid: [],
+    rightTrapezoid: [],
+    centerRectangle: [],
   });
-
-  const [lineData, setLineData] = useState(null);
 
   const handleButtonClick = (section) => {
     setActiveDropdown(activeDropdown === section ? null : section);
   };
 
-  const handleDropdownChange = (option, section) => {
-    setSelections((prev) => {
-      const newSelections = { ...prev, [section]: option };
-      onSelectionChange(toothNumber, newSelections);
-      return newSelections;
+  const handleOptionClick = (area, option) => {
+    setSelections((prevSelections) => {
+      // Determine the new selections based on the option chosen
+      let newSelections = [];
+      if (option === "Remove All") {
+        newSelections = [];
+      } else {
+        const index = prevSelections[area].indexOf(option);
+        if (index > -1) {
+          // Option was already selected, remove it
+          newSelections = [
+            ...prevSelections[area].slice(0, index),
+            ...prevSelections[area].slice(index + 1),
+          ];
+        } else {
+          // Option is not selected, so add it
+          newSelections = prevSelections[area].concat(option).slice(0, 2);
+        }
+      }
+
+      // Only update if the selections for the area have changed
+      if (
+        JSON.stringify(prevSelections[area]) !== JSON.stringify(newSelections)
+      ) {
+        const updatedSelections = {
+          ...prevSelections,
+          [area]: newSelections,
+        };
+
+        // Call onSelectionChange here after the state has been updated
+        onSelectionChange(toothNumber, updatedSelections);
+
+        return updatedSelections;
+      }
+
+      // If there is no change, return the previous state to prevent a re-render
+      return prevSelections;
     });
-    if (
-      option.includes("Left to Right") &&
-      (section === "leftTrapezoid" || section === "rightTrapezoid")
-    ) {
-      setLineData({ color: getFillColor(option), section });
-    }
   };
 
-  const renderDropdown = (section) => {
-    if (activeDropdown === section) {
-      const positionAdjustments = {
-        topTrapezoid: { top: "15%", left: "50%" },
-        bottomTrapezoid: { top: "85%", left: "50%" },
-        leftTrapezoid: { top: "50%", left: "15%" },
-        rightTrapezoid: { top: "50%", left: "85%" },
-        centerRectangle: { top: "50%", left: "50%" },
-      };
-
-      const styles = {
-        position: "absolute",
-        top: positionAdjustments[section].top,
-        left: positionAdjustments[section].left,
-        transform: "translate(-50%, -50%)",
-        zIndex: 1000,
-      };
-
+  const renderDropdown = (area) => {
+    if (activeDropdown === area) {
       return (
         <select
-          style={styles}
-          onChange={(e) => handleDropdownChange(e.target.value, section)}
+          className={`dropdown-${area}`}
+          onChange={(e) => handleOptionClick(area, e.target.value)}
+          value=""
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Select an option
           </option>
-          <option value="caries">Caries</option>
-          <option value="fillings">Fillings</option>
-          <option value="discolor">Discolor</option>
-          <option value="Left to Right caries">Left to Right Caries</option>
-          <option value="Left to Right fillings">Left to Right Fillings</option>
-          <option value="Left to Right discolor">Left to Right Discolor</option>
+          {Object.keys(colorCodes).map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+          <option value="Remove All">Remove All</option>
         </select>
       );
     }
     return null;
   };
 
-  const getFillColor = (option) => {
-    const colorMapping = {
-      caries: "red",
-      fillings: "blue",
-      discolor: "green",
-      "Left to Right caries": "red",
-      "Left to Right fillings": "blue",
-      "Left to Right discolor": "green",
-    };
-    return colorMapping[option];
+  useEffect(() => {
+    const finalSelections = Object.entries(selections).flatMap(
+      ([area, options]) => {
+        return options.map((option) => `${area}-${option}`);
+      }
+    );
+
+    if (finalSelections.length > 0) {
+      console.log(finalSelections.join(", "));
+    }
+  }, [selections]);
+
+  const renderDots = () => {
+    return Object.entries(selections).flatMap(([area, options]) => {
+      const center = getCircleCenter(area);
+      return options.map((option, index) => {
+        // Calculate positions for multiple dots
+        let cx = parseInt(center.cx);
+        let cy = parseInt(center.cy);
+        if (options.length === 2) {
+          cx += (index === 0 ? -1 : 1) * 4; // Offset the x position by 10 units
+        }
+        return (
+          <circle
+            key={`${area}-${option}-${index}`}
+            cx={cx.toString()}
+            cy={cy.toString()}
+            r="3"
+            fill={colorCodes[option]}
+          />
+        );
+      });
+    });
   };
 
   const getCircleCenter = (section) => {
     const centers = {
-      topTrapezoid: { x: 50, y: 15 },
-      bottomTrapezoid: { x: 50, y: 85 },
-      leftTrapezoid: { x: 15, y: 50 },
-      rightTrapezoid: { x: 85, y: 50 },
-      centerRectangle: { x: 50, y: 50 },
+      topTrapezoid: { cx: "25", cy: "7" },
+      bottomTrapezoid: { cx: "25", cy: "43" },
+      leftTrapezoid: { cx: "7", cy: "25" },
+      rightTrapezoid: { cx: "43", cy: "25" },
+      centerRectangle: { cx: "25", cy: "25" },
     };
     return centers[section];
   };
 
   return (
-    <div className="mtooth">
-      <svg width="100" height="100" style={{ background: "lightgrey" }}>
+    <div className="t-custom-shape-container">
+      <svg width="50" height="50" viewBox="0 0 50 50">
         {/* Large Rectangle */}
-        <rect
-          x="0"
-          y="0"
-          width="100"
-          height="100"
-          fill="white"
-          stroke="black"
-        />
+        <rect x="0" y="0" width="50" height="50" fill="white" stroke="black" />
 
         {/* Small Rectangle */}
         <rect
-          x="30"
-          y="30"
-          width="40"
-          height="40"
+          x="15"
+          y="15"
+          width="20"
+          height="20"
           fill="white"
           stroke="black"
         />
 
         {/* Connecting Lines */}
-        <line x1="0" y1="0" x2="30" y2="30" stroke="black" />
-        <line x1="100" y1="0" x2="70" y2="30" stroke="black" />
-        <line x1="0" y1="100" x2="30" y2="70" stroke="black" />
-        <line x1="100" y1="100" x2="70" y2="70" stroke="black" />
+        <line x1="0" y1="0" x2="15" y2="15" stroke="black" />
+        <line x1="50" y1="0" x2="35" y2="15" stroke="black" />
+        <line x1="0" y1="50" x2="15" y2="35" stroke="black" />
+        <line x1="50" y1="50" x2="35" y2="35" stroke="black" />
 
         {/* Clickable regions for dropdowns with the respective shapes */}
         <polygon
-          points="0,0 30,30 70,30 100,0"
+          points="0,0 15,15 35,15 50,0"
           fill="transparent"
           onClick={() => handleButtonClick("topTrapezoid")}
         />
         <polygon
-          points="0,100 30,70 70,70 100,100"
+          points="0,50 15,35 35,35 50,50"
           fill="transparent"
           onClick={() => handleButtonClick("bottomTrapezoid")}
         />
         <polygon
-          points="0,0 30,30 30,70 0,100"
+          points="0,0 15,15 15,35 0,50"
           fill="transparent"
           onClick={() => handleButtonClick("leftTrapezoid")}
         />
         <polygon
-          points="100,0 70,30 70,70 100,100"
+          points="50,0 35,15 35,35 50,50"
           fill="transparent"
           onClick={() => handleButtonClick("rightTrapezoid")}
         />
         <rect
-          x="30"
-          y="30"
-          width="40"
-          height="40"
+          x="15"
+          y="15"
+          width="20"
+          height="20"
           fill="transparent"
           onClick={() => handleButtonClick("centerRectangle")}
         />
 
         {/* ... the rest of your shapes and lines ... */}
         {/* Circles indicating selection */}
-        {Object.keys(selections).map((section) => {
-          const selection = selections[section];
-          if (selection && !selection.includes("Left to Right")) {
-            const center = getCircleCenter(section);
-            return (
-              <circle
-                cx={center.x}
-                cy={center.y}
-                r="5"
-                fill={getFillColor(selection)}
-              />
-            );
-          }
-          return null;
-        })}
-
-        {/* Line connecting left and right trapezoids */}
-        {lineData && (
-          <line
-            x1="15"
-            y1="50"
-            x2="85"
-            y2="50"
-            stroke={lineData.color}
-            strokeWidth="6"
-          />
-        )}
+        {renderDots("topTrapezoid")}
+        {renderDots("bottomTrapezoid")}
+        {renderDots("leftTrapezoid")}
+        {renderDots("rightTrapezoid")}
+        {renderDots("centerRectangle")}
       </svg>
-
       {renderDropdown("topTrapezoid")}
       {renderDropdown("bottomTrapezoid")}
       {renderDropdown("leftTrapezoid")}

@@ -15,21 +15,22 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+import DentalChart from "../../../Dental Charts/DentalChart";
 
 // Define correct answers for each step
 const CORRECT_ANSWERS = {
-  0: ['Mouth Mirror', 'CPI probe'],
-  1: 'Basic Periodontal Examination', // or "BPE"
-  2: ['A colour band from 3.5mm to 5.5mm', 'Ball ended tip'],
-  3: 'Diagram2', // Assuming the value for the second diagram is 'Diagram2'
-  5: ['Mouth Mirror', 'Periodontal probe'],
-  8: ['Periodontal probe'],
-  9: '78%',
-  10: ['Radiographs', 'Sensibility testing'],
-  11: 'IOPA & DPT',
-  13:'17 & 27',
-  14: 'Poor',
-  15: ['Pulpal status', 'Caries extension', 'Peri-apical infection'],
+  0: ["Mouth Mirror", "CPI probe"],
+  1: "Basic Periodontal Examination", // or "BPE"
+  2: ["A colour band from 3.5mm to 5.5mm", "Ball ended tip"],
+  3: "Diagram2", // Assuming the value for the second diagram is 'Diagram2'
+  5: ["Mouth Mirror", "Periodontal probe"],
+  8: ["Periodontal probe"],
+  9: "78%",
+  10: ["Radiographs", "Sensibility testing"],
+  11: "IOPA & DPT",
+  13: "17 & 27",
+  14: "Poor",
+  15: ["Pulpal status", "Caries extension", "Peri-apical infection"],
 };
 const CASE1_QUESTIONS={
   // Example structure, adjust based on your actual questions
@@ -55,8 +56,8 @@ const BlackBoxWithButton = ({ onFinish,unityData, sendToUnity  }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedDiagram, setSelectedDiagram] = useState("");
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
-  const [selectedPrognosis, setSelectedPrognosis] = useState(''); // Initial value can be an empty string or a default value
-  const [selectedTooth, setSelectedTooth] = useState('');
+  const [selectedPrognosis, setSelectedPrognosis] = useState(""); // Initial value can be an empty string or a default value
+  const [selectedTooth, setSelectedTooth] = useState("");
   const [showReviewPage, setShowReviewPage] = useState(false);
   const [firstAttemptAnswers, setFirstAttemptAnswers] = useState({});
 
@@ -71,7 +72,7 @@ const navigate = useNavigate();
     }
   };
 
- 
+   const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
   const [attempts, setAttempts] = useState({});
   const [scores, setScores] = useState({});
@@ -86,7 +87,7 @@ const navigate = useNavigate();
     { src: image4, value: "Diagram4" },
   ];
   const [answers, setAnswers] = useState({
-    "Tweezer": false,
+    Tweezer: false,
     "Mouth Mirror": false,
     "Sharp probe": false,
     "Naber’s probe": false,
@@ -108,7 +109,7 @@ const navigate = useNavigate();
       "Always only one colour band": false,
     });
   const [investigations, setInvestigations] = useState({
-    "Radiographs": false,
+    Radiographs: false,
     "3D imaging": false,
     "Sensibility testing": false,
     "Hematological investigations": false,
@@ -141,10 +142,15 @@ const navigate = useNavigate();
         "Press The TOOL TRAY VIEW button to see the dental tools"
       );
     }
-    if (unityData === "ToolTrayForPeriodontalScreening") {
+    if (unityData === "Tool tray toggled: Active") {
       setShowToolTrayQuestion(true); // Show the question when this message is received
     }
   }, [unityData]);
+
+    // Callback function to be passed to DentalChart
+    const handleScoreData = (score, totalCorrectAnswers) => {
+      setScoreData({ score, totalCorrectAnswers });
+    };
   // Function to handle checkbox changes
 
   
@@ -169,15 +175,13 @@ const navigate = useNavigate();
         console.log(`Option changed: ${option}, New state:`, newAnswers);
         return newAnswers;
       });
-    }
-    else if (step === 15) {
+    } else if (step === 15) {
       setPrognosis((prevAnswers) => {
         const newAnswers = { ...prevAnswers, [option]: !prevAnswers[option] };
         console.log(`Option changed: ${option}, New state:`, newAnswers);
         return newAnswers;
       });
-    }
-    else {
+    } else {
       setAnswers((prevAnswers) => {
         const newAnswers = { ...prevAnswers, [option]: !prevAnswers[option] };
         console.log(`Option changed: ${option}, New state:`, newAnswers);
@@ -186,18 +190,39 @@ const navigate = useNavigate();
     }
   };
 
+
+
+
   const renderRadioImageQuestion = () => {
     if (step === 3) {
       return (
         <div>
           <p>Select the diagram which denotes code 3.</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
             {diagramOptions.map((image, index) => (
-              <div key={index} style={{ flexBasis: '50%', textAlign: 'center', padding: '10px' }}>
+              <div
+                key={index}
+                style={{
+                  flexBasis: "50%",
+                  textAlign: "center",
+                  padding: "10px",
+                }}
+              >
                 <img
                   src={image.src}
                   alt={`Diagram ${index + 1}`}
-                  style={{ width: '65%', height: 'auto', objectFit: 'contain', maxWidth: '300px' }}
+                  style={{
+                    width: "65%",
+                    height: "auto",
+                    objectFit: "contain",
+                    maxWidth: "300px",
+                  }}
                 />
                 <div>
                   <input
@@ -218,9 +243,6 @@ const navigate = useNavigate();
     return null;
   };
 
-
-
-
   const renderRadioQuestion = () => {
     if (step === 11) {
       const radiographOptions = [
@@ -238,15 +260,10 @@ const navigate = useNavigate();
           onValueChange={handleImageSelect} // Reuse the same handler if appropriate, or create a new one if needed
         />
       );
-    }  if (step === 13) {
-      const toothOptions = [
-        "45",
-        "11 & 21",
-        "17",
-        "24 & 35",
-        "17 & 27",
-      ];
-  
+    }
+    if (step === 13) {
+      const toothOptions = ["45", "11 & 21", "17", "24 & 35", "17 & 27"];
+
       return (
         <RadioTextQuestion
           question="Select the tooth/teeth you would proceed sensibility recording?"
@@ -255,14 +272,8 @@ const navigate = useNavigate();
           onValueChange={setSelectedTooth}
         />
       );
-    }
-    else if (step === 14) {
-      const prognosisOptions = [
-        "Poor",
-        "Questionable",
-        "Good",
-        "Hopeless",
-      ];
+    } else if (step === 14) {
+      const prognosisOptions = ["Poor", "Questionable", "Good", "Hopeless"];
 
       return (
         <RadioTextQuestion
@@ -274,11 +285,8 @@ const navigate = useNavigate();
       );
     }
 
-
     return null;
   };
-
-
 
   // Handle radio button selection
   const handleImageSelect = (value) => {
@@ -289,7 +297,7 @@ const navigate = useNavigate();
     console.log("handleProcedureNameChange called"); // Debug statement 1
     console.log("Current input value:", event.target.value); // Debug statement 2
     setProcedureName(event.target.value);
-};
+  };
 
   useEffect(() => {
     switch (step) {
@@ -297,7 +305,7 @@ const navigate = useNavigate();
       case 5:
       case 8:
         setAnswers({
-          "Tweezer": false,
+          Tweezer: false,
           "Mouth Mirror": false,
           "Sharp probe": false,
           "Naber’s probe": false,
@@ -324,7 +332,7 @@ const navigate = useNavigate();
         break;
       case 10:
         setInvestigations({
-          "Radiographs": false,
+          Radiographs: false,
           "3D imaging": false,
           "Sensibility testing": false,
           "Hematological investigations": false,
@@ -513,7 +521,7 @@ const navigate = useNavigate();
         userAnswers = investigations;
         break;
       case 13:
-          return selectedTooth === CORRECT_ANSWERS[currentStep];
+        return selectedTooth === CORRECT_ANSWERS[currentStep];
       case 14:
         return selectedPrognosis === CORRECT_ANSWERS[currentStep];
       case 15:
@@ -522,21 +530,31 @@ const navigate = useNavigate();
       default:
         userAnswers = answers;
     }
-  
+
     console.log(`Checking answers for step ${currentStep}`);
-    console.log('User answers:', userAnswers);
-    console.log('Correct answers:', CORRECT_ANSWERS[currentStep]);
-  
+    console.log("User answers:", userAnswers);
+    console.log("Correct answers:", CORRECT_ANSWERS[currentStep]);
+
     if (Array.isArray(CORRECT_ANSWERS[currentStep])) {
-      return CORRECT_ANSWERS[currentStep].every(answer => userAnswers[answer]);
+      return CORRECT_ANSWERS[currentStep].every(
+        (answer) => userAnswers[answer]
+      );
     } else {
-      return selectedDiagram === CORRECT_ANSWERS[currentStep] || procedureName === CORRECT_ANSWERS[currentStep];
+      return (
+        selectedDiagram === CORRECT_ANSWERS[currentStep] ||
+        procedureName === CORRECT_ANSWERS[currentStep]
+      );
     }
   };
-  
 
   const handleButtonClick = () => {
    console.log("handleButtonClick called with step:", step);
+      // Add a call to sendMessageToUnity here
+      console.log("submit");
+  if (sendMessageToUnity) {
+    console.log("submit");
+    sendMessageToUnity("ToggleToolTray");
+  }
     // Directly proceed to the next step for steps 4, 6, and 7
     if (step === 4 || step === 6 || step === 7 || step === 12) {
       proceedToNextStep();
@@ -603,12 +621,19 @@ if (currentAttempts === 0) {
       proceedToNextStep();
     } else {
       setAttempts({ ...attempts, [step]: currentAttempts + 1 });
-      if (currentAttempts < 2) { // Allow 3 attempts, so check if the current attempt is less than 2
+      if (currentAttempts < 2) {
+        // Allow 3 attempts, so check if the current attempt is less than 2
         setCorrectAnswerMessage("Wrong answer! Try again.");
       } else {
         setScores({ ...scores, [step]: (scores[step] || 0) - 5 });
         setTotalScore((prevTotalScore) => prevTotalScore - 5);
-        setCorrectAnswerMessage(`Incorrect. The correct answer is: ${Array.isArray(CORRECT_ANSWERS[step]) ? CORRECT_ANSWERS[step].join(', ') : CORRECT_ANSWERS[step]}`);
+        setCorrectAnswerMessage(
+          `Incorrect. The correct answer is: ${
+            Array.isArray(CORRECT_ANSWERS[step])
+              ? CORRECT_ANSWERS[step].join(", ")
+              : CORRECT_ANSWERS[step]
+          }`
+        );
         proceedToNextStep();
       }
     }
@@ -654,12 +679,13 @@ if (currentAttempts === 0) {
             setInstruction("Radiographs");
             setExamination("");
             break;
-            case 13:
-              setInstruction("Sensibility recordings");
-              break;
+          case 13:
+            setInstruction("Sensibility recordings");
+            break;
           default:
             break;
-        } if (nextStep === 14) {
+        }
+        if (nextStep === 14) {
           setInstruction("Prognosis");
         }
 
@@ -670,7 +696,6 @@ if (currentAttempts === 0) {
       alert(`Simulation complete! Your total score is: ${totalScore}`);
     }
   };
-
   
   return (
     <div style={boxStyle}>
@@ -707,6 +732,17 @@ if (currentAttempts === 0) {
             // When step is 2, you can add the new components or logic here for future additions
             <div>{renderCheckBoxQuestion()}</div>
           )}
+          {step === 6 && (
+            <div>
+             <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
+            </div>
+          )}
+          {/* Possibly render the score data */}
+      {scoreData && (
+        <div>
+          User's Score: {scoreData.score} out of {scoreData.totalCorrectAnswers}
+        </div>
+      )}
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
             <div>
@@ -729,14 +765,12 @@ if (currentAttempts === 0) {
             </div>
           )}
           {step === 9 && (
-
             // When step is 2, you can add the new components or logic here for future additions
             <div>
               <div
                 className="imageContainer"
                 style={{ maxHeight: "100%", maxWidth: "100%" }}
               >
-
                 <img
                   src={imgplaqueChart}
                   alt="description"
@@ -761,14 +795,18 @@ if (currentAttempts === 0) {
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "1px",
-                overflowY: 'auto',
-                paddingTop: '1px', // Reduced top padding
-                paddingRight: '10px',
-                paddingBottom: '1px',
-                paddingLeft: '10px',
+                overflowY: "auto",
+                paddingTop: "1px", // Reduced top padding
+                paddingRight: "10px",
+                paddingBottom: "1px",
+                paddingLeft: "10px",
               }}
             >
-              <div style={{ textAlign: 'center', width: '100%', marginTop: '0' }}> {/* Removed top margin from the first image container */}
+              <div
+                style={{ textAlign: "center", width: "100%", marginTop: "0" }}
+              >
+                {" "}
+                {/* Removed top margin from the first image container */}
                 <img
                   src={img3}
                   alt="IOPA 17"
@@ -778,9 +816,9 @@ if (currentAttempts === 0) {
                     objectFit: "contain",
                   }}
                 />
-                <p style={{ fontSize: 'smaller' }}>IOPA 17</p>
+                <p style={{ fontSize: "smaller" }}>IOPA 17</p>
               </div>
-              <div style={{ textAlign: 'center', width: '100%' }}>
+              <div style={{ textAlign: "center", width: "100%" }}>
                 <img
                   src={img4}
                   alt="DPT"
@@ -790,14 +828,14 @@ if (currentAttempts === 0) {
                     objectFit: "contain",
                   }}
                 />
-                <p style={{ fontSize: 'smaller', marginTop: '5px' }}>DPT</p> {/* Label for the second image */}
+                <p style={{ fontSize: "smaller", marginTop: "5px" }}>DPT</p>{" "}
+                {/* Label for the second image */}
               </div>
             </div>
           )}
           {step === 13 && <div>{renderRadioQuestion()}</div>}
           {step === 14 && <div>{renderRadioQuestion()}</div>}
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
-
         </div>
       </div>
 

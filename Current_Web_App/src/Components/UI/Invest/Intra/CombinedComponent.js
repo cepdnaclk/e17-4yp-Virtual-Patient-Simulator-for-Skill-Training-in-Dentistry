@@ -9,6 +9,7 @@ const CombinedComponent = () => {
 
   const [unityData, setUnityData] = useState(null);
   const sendToUnityRef = useRef(null);
+  const [isUnityReady, setIsUnityReady] = useState(false);
 
   const handleUnityData = (data) => {
     console.log("Data received from Unity:", data);
@@ -22,9 +23,9 @@ const CombinedComponent = () => {
 
   const getSendMessageToUnity = (sendMessage) => {
     sendToUnityRef.current = sendMessage;
-    console.log("getSendMessageToUnity called", sendMessage);
-  };
-
+    setIsUnityReady(true); // This will trigger a re-render
+    console.log("getSendMessageToUnity called, function: ", sendMessage);
+};
   // Adjust the main container to lay out items horizontally
   const containerStyle = {
     display: "flex",
@@ -70,6 +71,7 @@ const CombinedComponent = () => {
         </div>
         <div style={questionBoxStyle}>
           {/* Here we call the function to render our question */}
+ {isUnityReady && <BlackBoxWithButton unityData={unityData} sendToUnity={sendToUnityRef.current} />}
 
           <BlackBoxWithButton
             unityData={unityData}
