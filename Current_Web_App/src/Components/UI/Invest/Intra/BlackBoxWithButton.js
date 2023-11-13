@@ -48,7 +48,7 @@ const CASE1_QUESTIONS = {
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(-1);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -114,19 +114,19 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     "Peri-apical infection": false,
   });
   const [instruction, setInstruction] = useState(
-    "Conduct the EXTRA ORAL VIEW EXAMINATION"
+    "EXTRA ORAL VIEW EXAMINATION"
   );
   const [examination, setExamination] = useState("");
 
   const [questionMessage, setQuestionMessage] = useState(
-    "Patient looks fit and healthy"
+    "Since Patient looks fit and healthy , please click Enter INTRA ORAL View button to proceed with the rest of the examination."
   ); // New state to hold the question message
 
   // Effect hook to listen for changes in unityData
   useEffect(() => {
     console.log("Unity data received in BlackBoxWithButton:", unityData); // Add this line for debugging
     if (unityData === "MessageFromUnity") {
-      setQuestionMessage("Patient looks fit and healthy");
+      
       // setShowQuestion(true);
       setInstruction("INTRA ORAL VIEW EXAMINATION");
       setExamination("Periodontal Screening");
@@ -136,7 +136,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     }
     if (unityData === "Tool tray toggled: Active") {
       setShowToolTrayQuestion(true); // Show the question when this message is received
-    }
+      setStep(0);
+        }
   }, [unityData]);
 
   // Callback function to be passed to DentalChart
@@ -466,13 +467,15 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
   const buttonStyle = {
     fontSize: "14px", // Set the font size to make the button smaller
+    width: "300px",
     padding: "10px 20px", // Add padding to make the button look good
-    backgroundColor: isSubmitted ? "green" : "blue", // Change button color after submission
+    backgroundColor: isSubmitted ? "lightgreen" : "dodgerblue", // Change button color after submission
   };
 
   const instructionBoxStyle = {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: "snow",
+    border: "1px solid black",
+    color: "black",
     padding: "10px",
     fontSize: "14px",
     width: "300px", // You can adjust this width to suit your content
@@ -495,9 +498,27 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     display: "flex",
     flexDirection: "column",
     justifyContent: "start", // Aligns items to the start of the flex container
-    marginRight: "20px", // This creates a gap on the right side. Adjust as needed.
+    marginRight: "300px", // This creates a gap on the right side. Adjust as needed.
   };
+  const messageBoxStyle = {
+    border: '1px solid #ddd', // Light grey border
+    padding: '10px',
+    margin: '10px 0',
+    backgroundColor: '#f9f9f9', // Light background
+    fontSize: '14px',
+    borderRadius: '5px', // Rounded corners
+    width: '300px', // Maximum width
+    wordWrap: 'break-word', // Ensures text wraps to avoid overflow
+  };
+  let messageBoxDynamicStyle = { ...messageBoxStyle };
 
+  if (correctAnswerMessage.includes("Correct")) {
+    messageBoxDynamicStyle.backgroundColor = 'lightgreen';
+  } else if (correctAnswerMessage.includes("Wrong")) {
+    messageBoxDynamicStyle.backgroundColor = 'salmon';
+  } else if (correctAnswerMessage) {
+    messageBoxDynamicStyle.backgroundColor = 'royalblue';
+  }
   // Function to check if the answer is correct
   const isAnswerCorrect = (currentStep) => {
     let userAnswers;
@@ -631,24 +652,15 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       setCorrectAnswerMessage("");
     }, 3000);
 
-    if (step >= 15) {
+    if (step ===15) {
       setButtonText("Finish");
     }
     // Show review page when "Finish" button is clicked
-    if (buttonText === "Finish") {
-      //   setShowReviewPage(true);
-      //handleFinish(); // Call handleFinish when the Finish button is clicked
-
-      navigate("/feedback", {
-        state: {
-          totalScore,
-          CORRECT_ANSWERS,
-          firstAttemptAnswers,
-          showBlackBox: false,
-          CASE1_QUESTIONS,
-        },
-      });
+    if (step === 15 && buttonText === "Finish") {
+      navigate('/feedback', { state: { totalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
+      return; // Exit the function to prevent further execution
     }
+  
   };
 
   const proceedToNextStep = () => {
@@ -687,10 +699,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
         return nextStep;
       });
-    } else {
-      // Show total score
-      alert(`Simulation complete! Your total score is: ${totalScore}`);
-    }
+    } 
   };
 
   return (
@@ -710,7 +719,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
               {renderProcedureNameQuestion()}{" "}
               {/* Call the function to render the input field */}
             </>
-          ) : step === 0 && !showToolTrayQuestion ? (
+          ) : step === (-1 || 0) && !showToolTrayQuestion ? (
             // If step is 0, display the default question message
             <p>{questionMessage}</p>
           ) : showToolTrayQuestion ? (
@@ -839,15 +848,20 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
         </div>
       </div>
+      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1}>
+  {buttonText}
+</button>
 
       <div>
-        {correctAnswerMessage && <p>{correctAnswerMessage}</p>}
-        <button style={buttonStyle} onClick={handleButtonClick}>
-          {buttonText}
-        </button>
-      </div>
-    </div>
-  );
+        
+    {correctAnswerMessage && <p style={messageBoxDynamicStyle}>{correctAnswerMessage}</p>}
+    
+</div>
+
+     
+    
+  </div>
+);
 };
 
 export default BlackBoxWithButton;
