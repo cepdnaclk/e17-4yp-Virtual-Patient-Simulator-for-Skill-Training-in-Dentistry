@@ -48,7 +48,7 @@ const CASE1_QUESTIONS = {
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(13);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -564,7 +564,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       sendMessageToUnity("ToggleToolTray");
     }
     // Directly proceed to the next step for steps 4, 6, and 7
-    if (step === 4 || step === 6 || step === 7 || step === 12) {
+    if (step === 4 ||step === 6 || step === 7 || step === 12) {
       proceedToNextStep();
       return;
     }
@@ -656,7 +656,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     }
     // Show review page when "Finish" button is clicked
     if (step === 15 && buttonText === "Finish") {
-      navigate('/feedback', { state: { totalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
+      const finalScore = totalScore + (scoreData ? scoreData.mark : 0);
+      navigate('/feedback', { state: { finalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
       return; // Exit the function to prevent further execution
     }
   
