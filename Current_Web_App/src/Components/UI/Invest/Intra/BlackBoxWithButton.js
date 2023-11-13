@@ -48,7 +48,7 @@ const CASE1_QUESTIONS={
   15: "What factors contributed to determine the prognosis of the tooth 17?",
 };
 
-const BlackBoxWithButton = ({ onFinish,unityData, sendToUnity  }) => {
+const BlackBoxWithButton = ({ onFinish,unityData,sendMessageToUnity}) => {
   const [buttonText, setButtonText] = useState("Submit");
   const [step, setStep] = useState(15);
   const procedureNameInputRef = useRef(null);
