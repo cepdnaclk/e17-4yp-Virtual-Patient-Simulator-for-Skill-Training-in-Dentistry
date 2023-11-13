@@ -48,7 +48,7 @@ const CASE1_QUESTIONS = {
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(6);
+  const [step, setStep] = useState(7);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -131,9 +131,10 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   ); // New state to hold the question message
 
 
-    // This function will be called by the child component
   const handleMarks = (mark1, mark2) => {
     setMarks({ mark1, mark2 });
+    // Additional code to test the received data (e.g., logging it to the console)
+    console.log(`Received marks: mark1 = ${mark1}, mark2 = ${mark2}`);
   };
   // Effect hook to listen for changes in unityData
   useEffect(() => {
@@ -159,6 +160,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     setStep(currentStep => currentStep + 1);
   };
   // Function to handle checkbox changes
+  
 
   const handleCheckboxChange = (option) => {
     console.log(`handleCheckboxChange called with option: ${option}`);
@@ -770,11 +772,11 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
         </div>
       )}
-          {step === 7 && (
-            <div>
-              <Test></Test>
-            </div>
-          )}
+        {step === 7 && (
+  <div>
+    <Test onSubmit={handleMarks} />
+  </div>
+)}
 
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions

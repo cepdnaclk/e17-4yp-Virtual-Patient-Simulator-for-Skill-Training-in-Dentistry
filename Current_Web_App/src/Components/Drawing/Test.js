@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Stage, Layer, Line, Rect } from "react-konva";
 
-const Test = () => {
+const Test = ({onSubmit}) => {
   const [lines, setLines] = useState([]); // Initial lines state, which will hold the user's drawing
   const [drawing, setDrawing] = useState(false);
   const [color, setColor] = useState("black"); // default color
@@ -17,7 +17,7 @@ const Test = () => {
 
   // rest of the handleMouseDown, handleMouseUp, handleMouseMove
 
-  const handleCompareImages = async (userDrawingBlob) => {
+  const handleCompareImages = async (userDrawingBlob , onResult) => {
     const formData = new FormData();
     formData.append("image1", userDrawingBlob, "user-drawing.png");
     formData.append(
@@ -43,6 +43,10 @@ const Test = () => {
 
       const { compatibility } = await response.json();
       const feedbackAndMarks = getMarksAndFeedback(compatibility, color);
+      const { feedback, mark1, mark2 } = getMarksAndFeedback(compatibility, color);
+      if (onResult) {
+        onResult(mark1, mark2);
+      }
       console.log(feedbackAndMarks); // Logs the feedback and marks
     } catch (error) {
       console.error("There was an error!", error);
@@ -184,7 +188,7 @@ const Test = () => {
     // Convert the updated canvas to a data URL
     canvas.toBlob((blob) => {
       // Now we have the blob, we can send it to the server
-      handleCompareImages(blob);
+      handleCompareImages(blob,onSubmit);
     });
   };
 
