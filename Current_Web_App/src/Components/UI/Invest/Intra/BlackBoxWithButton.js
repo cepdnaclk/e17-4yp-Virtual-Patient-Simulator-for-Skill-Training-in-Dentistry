@@ -10,6 +10,11 @@ import image4 from "./images/image4.jpg";
 import RadioTextQuestion from "./RadioTextQuestion";
 import img3 from "../../../../Images/200.png";
 import img4 from "../../../../Images/80.png";
+import { useNavigate } from 'react-router-dom';
+
+
+
+
 import DentalChart from "../../../Dental Charts/DentalChart";
 
 // Define correct answers for each step
@@ -27,9 +32,25 @@ const CORRECT_ANSWERS = {
   14: "Poor",
   15: ["Pulpal status", "Caries extension", "Peri-apical infection"],
 };
-const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
+const CASE1_QUESTIONS={
+  // Example structure, adjust based on your actual questions
+  0: "Select the instruments needed to carry out the periodontal screening",
+  1: "What is the name of this procedure?",
+  2: "Select the features of the instrument used for the periodontal screening.",
+  3: 'Select the diagram which denotes code 3',
+  5: "Select the instruments needed to carry out the hard tissue assessment",
+  8: "Select the instruments needed to record the plaque score",
+  9: "What is the plaq score?",
+  10:"Select the investigation/s you wish to proceed?",
+  11:"What radiographs would you take?",
+  13:"Select the tooth/teeth you would proceed sensibility recording?",
+  14: "What is the prognosis for tooth 17?",
+  15: "What factors contributed to determine the prognosis of the tooth 17?",
+};
+
+const BlackBoxWithButton = ({ onFinish,unityData, sendToUnity  }) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(15);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -37,11 +58,21 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [showToolTrayQuestion, setShowToolTrayQuestion] = useState(false);
   const [selectedPrognosis, setSelectedPrognosis] = useState(""); // Initial value can be an empty string or a default value
   const [selectedTooth, setSelectedTooth] = useState("");
+  const [showReviewPage, setShowReviewPage] = useState(false);
+  const [firstAttemptAnswers, setFirstAttemptAnswers] = useState({});
 
+// Inside your component
+const navigate = useNavigate();
   const handlePrognosisSelect = (newValue) => {
     setSelectedPrognosis(newValue);
   };
-  const [scoreData, setScoreData] = useState(null);
+  const handleFinish = () => {
+    if (onFinish) {
+      onFinish();
+    }
+  };
+
+   const [scoreData, setScoreData] = useState(null);
   // Add new states for attempts and scores
   const [attempts, setAttempts] = useState({});
   const [scores, setScores] = useState({});
@@ -121,7 +152,10 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       setScoreData({ score, totalCorrectAnswers });
     };
   // Function to handle checkbox changes
+
+  
   const handleCheckboxChange = (option) => {
+    console.log(`handleCheckboxChange called with option: ${option}`);
     if (step === 2) {
       setPeriodontalScreeningOptions((prevAnswers) => {
         const newAnswers = { ...prevAnswers, [option]: !prevAnswers[option] };
@@ -243,7 +277,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
       return (
         <RadioTextQuestion
-          question="What is the prognosis for 17?"
+          question="What is the prognosis for tooth 17?"
           options={prognosisOptions}
           selectedValue={selectedPrognosis} // Define selectedPrognosis to store the selected option
           onValueChange={handlePrognosisSelect} // Define handlePrognosisSelect to handle the option change
@@ -332,6 +366,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   };
   // Render the checkbox question if showToolTrayQuestion is true
   const renderCheckBoxQuestion = () => {
+  console.log("renderCheckBoxQuestion called with step:", step);
     if (step === 0 && showToolTrayQuestion) {
       // Render the first set of checkboxes
       return (
@@ -363,7 +398,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       // Render the first set of checkboxes
       return (
         <CheckBoxQuestion
-          question="Select the instruments needed to carry out the plaque score"
+          question="Select the instruments needed to record the plaque score"
           answers={answers}
           onCheckboxChange={handleCheckboxChange}
         />
@@ -390,7 +425,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       // Render the first set of checkboxes
       return (
         <CheckBoxQuestion
-          question="Prognosis of the tooth 17?"
+          question="What factors contributed to determine the prognosis of the tooth 17?"
           answers={prognosis}
           onCheckboxChange={handleCheckboxChange}
         />
@@ -513,6 +548,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   };
 
   const handleButtonClick = () => {
+   console.log("handleButtonClick called with step:", step);
       // Add a call to sendMessageToUnity here
       console.log("submit");
   if (sendMessageToUnity) {
@@ -527,6 +563,56 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     const correct = isAnswerCorrect(step);
     console.log(`Step ${step} answer correct:`, correct);
     const currentAttempts = attempts[step] || 0;
+
+// Save first attempt answer
+if (currentAttempts === 0) {
+  let firstAttemptAnswer;
+  switch (step) {
+    case 0:
+      firstAttemptAnswer = answers;
+      break;  
+    case 1:
+      firstAttemptAnswer = procedureName;
+      break;  
+    case 2:
+      firstAttemptAnswer = periodontalScreeningOptions;
+      break;
+    case 3:
+        firstAttemptAnswer = selectedDiagram;
+        break;
+    case 5:
+        firstAttemptAnswer = answers;
+        break;  
+    case 8:
+        firstAttemptAnswer = answers;
+        break;
+    case 9:
+      firstAttemptAnswer = plaqscoreanswers;
+      break;
+    case 10:
+      firstAttemptAnswer = investigations;
+      break;
+    case 11:
+      firstAttemptAnswer = selectedDiagram;
+      break;
+    case 13:
+      firstAttemptAnswer = selectedTooth;
+      break;
+    case 14:
+      firstAttemptAnswer = selectedPrognosis; // Corrected to selectedPrognosis
+      break;
+    case 15:
+      firstAttemptAnswer = prognosis;
+      break;
+    default:
+      firstAttemptAnswer = answers;
+  }
+
+  setFirstAttemptAnswers(prevAnswers => ({
+    ...prevAnswers,
+    [step]: firstAttemptAnswer
+  }));
+}
 
     if (correct) {
       setScores({ ...scores, [step]: (scores[step] || 0) + 5 });
@@ -551,11 +637,22 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         proceedToNextStep();
       }
     }
-
+ 
     // Reset the correct answer message after a delay
     setTimeout(() => {
       setCorrectAnswerMessage("");
     }, 3000);
+
+    if (step >=15) {
+      setButtonText("Finish");
+    }
+    // Show review page when "Finish" button is clicked
+    if (buttonText === "Finish") {
+   //   setShowReviewPage(true);
+      //handleFinish(); // Call handleFinish when the Finish button is clicked
+     
+      navigate('/feedback', { state: { totalScore,CORRECT_ANSWERS,firstAttemptAnswers,showBlackBox: false ,CASE1_QUESTIONS} });
+    }
   };
 
   const proceedToNextStep = () => {
@@ -599,7 +696,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       alert(`Simulation complete! Your total score is: ${totalScore}`);
     }
   };
-
+  
   return (
     <div style={boxStyle}>
       <div style={instructionBoxStyle}>
@@ -608,7 +705,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         <p>{examination}</p>
       </div>
 
-      {/* Content for question box */}
+     
       {/* Content for question box */}
       <div style={questionBoxStyle}>
         <div>
@@ -743,13 +840,15 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       </div>
 
       <div>
-        {correctAnswerMessage && <p>{correctAnswerMessage}</p>}
-        <button style={buttonStyle} onClick={handleButtonClick}>
-          {buttonText}
-        </button>
-      </div>
-    </div>
-  );
+          {correctAnswerMessage && <p>{correctAnswerMessage}</p>}
+          <button style={buttonStyle} onClick={handleButtonClick}>
+            {buttonText}
+          </button>
+        </div>
+     
+    
+  </div>
+);
 };
 
 export default BlackBoxWithButton;
