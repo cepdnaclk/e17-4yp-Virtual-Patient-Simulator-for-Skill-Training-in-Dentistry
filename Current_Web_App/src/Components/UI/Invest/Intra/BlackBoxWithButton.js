@@ -50,7 +50,7 @@ const CASE1_QUESTIONS={
 
 const BlackBoxWithButton = ({ onFinish,unityData,sendMessageToUnity}) => {
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(15);
+  const [step, setStep] = useState(0);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
