@@ -1,9 +1,66 @@
-/* .dropdown-menu {
-  position: absolute;
-  top: 0; 
-   left: 0; 
-} */
-
-.tooth {
+.t-custom-shape-container {
   position: relative;
+  /* Ensure the container has a set size if necessary */
+  width: 50px; /* Adjust as necessary */
+  height: 50px; /* Adjust as necessary */
+  z-index: 1; /* Base level */
+  margin-bottom: 30px;
+}
+
+.t-dropdown-menu {
+  display: none; /* Hide the dropdown by default */
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Increased z-index to ensure it's above other elements */
+  padding: 1px 30px; /* Reduced padding */
+  border-radius: 4px; /* Optional: for rounded corners */
+  border: 1px solid #ddd; /* Optional: for border */
+  /* other styles */
+}
+
+/* Style for the dropdown list items */
+.t-dropdown-menu li {
+  padding: 4px 8px; /* Reduced padding */
+  cursor: pointer;
+  font-size: 12px; /* Reduced font size */
+  text-align: center; /* Center the text */
+}
+
+/* Position adjustments for dropdowns */
+.dropdown-TopTriangle {
+  top: 100%; /* Position the dropdown right below the triangle */
+  left: 50%;
+  transform: translateX(-50%); /* Center the dropdown */
+  width: 80px; /* Adjust width as needed */
+}
+
+.dropdown-BottomTriangle {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+}
+
+.dropdown-LeftTriangle {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  width: 80px;
+}
+
+.dropdown-RightTriangle {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  width: 80px;
+}
+
+/* Update your dropdown active class as well */
+.dropdown-TopTriangle.active,
+.dropdown-BottomTriangle.active,
+.dropdown-LeftTriangle.active,
+.dropdown-RightTriangle.active {
+  display: block;
+  z-index: 1000; /* Ensure it's the same high value */
 }
