@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import BlackBoxWithButton from "../Invest/Intra/BlackBoxWithButton";
 import './Feed.css'; // Assuming you have a CSS file for styling
 import Painfulteeth from "../Invest/Intra/images/Painfulteeth.jpeg";
 
 const FeedbackEval = () => {
-  const [evaluationData, setEvaluationData] = useState({});
+ 
   const location = useLocation();
+  const navigate = useNavigate();
   const {finalScore, CORRECT_ANSWERS, firstAttemptAnswers,CASE1_QUESTIONS } = location.state;
   const shouldRenderBlackBox = location.state?.showBlackBox !== false;
 
-  const handleEvaluationDataChange = (data) => {
-    console.log("Data received:", data);
-    setEvaluationData(data);
-  };
+ 
 
   const formatAnswer = (answer) => {
     // Check if the answer is an object and not an array
@@ -34,14 +32,24 @@ const FeedbackEval = () => {
     }
     return answer;
   };
-
+  const goToHome = () => {
+    navigate('/caseSelect'); // Navigate to home page
+  };
   return (
     <>
       {shouldRenderBlackBox && (
-        <BlackBoxWithButton onEvaluationDataChange={handleEvaluationDataChange} />
+        <BlackBoxWithButton/>
       )}
       <div className="feedback-container">
-        <h3>Feedback</h3>
+        <h2>Feedback</h2>
+         {/* Case Details Section */}
+         <div className="case-details">
+          <h4>Case Details</h4>
+          <p><strong>Case Id:</strong> C001</p>
+          <p><strong>Case Description:</strong> A 38-year-old patient presents with a painful tooth on the right side upper arch.</p>
+          <p><strong>Your Spent Time:</strong> 0:1:19hrs</p>
+        </div>
+
         <table className="feedback-table">
           <thead>
             <tr>
@@ -60,13 +68,20 @@ const FeedbackEval = () => {
             ))}
           </tbody>
         </table>
-        <div className="total-score">
-          <strong>Total Score: {finalScore}</strong>
-        </div>
-        <div className="dental-chart">
+        
+          <div>
           <h3>Correct Dental Chart for Case 1</h3>
           <img src={Painfulteeth} alt="Correct Dental Chart" />
-        </div>
+          </div>
+          <div>
+          <h3>Correct Marking of the Tooth 25</h3>
+          <img src={Painfulteeth} alt="Correct Dental Chart" />
+          </div>
+      
+          <div className="total-score">
+          <strong>Total Score: {finalScore}</strong>
+          </div>
+          <button onClick={goToHome} className="go-home-button">Go Back to Home</button> {/* Add this button */}
       </div>
     </>
   );
