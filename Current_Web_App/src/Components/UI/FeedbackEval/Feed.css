@@ -8,17 +8,34 @@
   }
   
   .feedback-table th, .feedback-table td {
-    border: 1px solid #ddd;
+    border: 3px solid #dde4e5;
     padding: 8px;
     text-align: left;
   }
   
   .feedback-table th {
-    background-color: #f4f4f4;
+    background-color: #c2c1c1;
   }
   
   .total-score {
     margin-top: 20px;
     font-size: 1.2em;
+  }
+  .dental-chart {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .dental-chart img {
+    max-width: 75%;
+    height: auto;
+  }
+  
+  body {
+    background: linear-gradient(to right, #63d2eb, #0289ab); /* Blue gradient */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   
