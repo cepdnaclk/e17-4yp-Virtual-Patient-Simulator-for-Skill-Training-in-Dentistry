@@ -26,9 +26,15 @@
     text-align: center;
   }
   
-  .dental-chart img {
-    max-width: 75%;
-    height: auto;
+  .total-score {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text color */
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center; /* Center the text */
+    font-size: 1.2em; /* Larger font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add some shadow for depth */
   }
   
   body {
@@ -37,5 +43,21 @@
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  .go-home-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Example blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+   
+  }
+  
+  .go-home-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
   }
   

@@ -18,7 +18,7 @@ import DentalChart from "../../../Dental Charts/DentalChart";
 // Define correct answers for each step
 const CORRECT_ANSWERS = {
   0: ["Mouth Mirror", "CPI probe"],
-  1: "Basic Periodontal Examination", // or "BPE"
+  1: "20-25g", // or "BPE"
   2: ["A colour band from 3.5mm to 5.5mm", "Ball ended tip"],
   3: "Diagram2", // Assuming the value for the second diagram is 'Diagram2'
   5: ["Mouth Mirror", "Periodontal probe"],
@@ -123,12 +123,21 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const [questionMessage, setQuestionMessage] = useState(
     "Since Patient looks fit and healthy , please click Enter INTRA ORAL View button to proceed with the rest of the examination."
   ); // New state to hold the question message
+  // Define the options for the single-choice question
+  const forceOptions = [
+    "45-50g",
+    "35-40g",
+    "20-25g",
+    "15-20g",
+  ];
 
+  // Add a new state for the selected force
+  const [selectedForce, setSelectedForce] = useState("");
   // Effect hook to listen for changes in unityData
   useEffect(() => {
     console.log("Unity data received in BlackBoxWithButton:", unityData); // Add this line for debugging
     if (unityData === "MessageFromUnity") {
-      
+
       // setShowQuestion(true);
       setInstruction("INTRA ORAL VIEW EXAMINATION");
       setExamination("Periodontal Screening");
@@ -139,7 +148,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     if (unityData === "Tool tray toggled: Active") {
       setShowToolTrayQuestion(true); // Show the question when this message is received
       setStep(0);
-        }
+    }
   }, [unityData]);
 
   // Callback function to be passed to DentalChart
@@ -338,20 +347,28 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   // When the component mounts, add an event listener to the input
 
   // Function to render the question and input field
+  // Modify the renderProcedureNameQuestion function
   const renderProcedureNameQuestion = () => {
     return (
       <div style={{ marginTop: "20px" }}>
-        <label htmlFor="procedureName">
-          What is the name of this procedure?
+        <label htmlFor="forceQuestion">
+          According to the guidelines, what is the force that should be applied on the instrument during BPE?
         </label>
-        <input
-          type="text"
-          id="procedureName"
-          ref={procedureNameInputRef}
-          value={procedureName}
-          onChange={handleProcedureNameChange}
-          style={{ marginLeft: "10px" }}
-        />
+        <div>
+          {forceOptions.map((option, index) => (
+            <div key={index}>
+              <input
+                type="radio"
+                id={`forceOption${index}`}
+                name="forceQuestion"
+                value={option}
+                checked={selectedForce === option}
+                onChange={(e) => setSelectedForce(e.target.value)}
+              />
+              <label htmlFor={`forceOption${index}`}>{option}</label>
+            </div>
+          ))}
+        </div>
       </div>
     );
   };
@@ -525,6 +542,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
   const isAnswerCorrect = (currentStep) => {
     let userAnswers;
     switch (currentStep) {
+      case 1:
+      return selectedForce === CORRECT_ANSWERS[currentStep];
       case 9:
         userAnswers = plaqscoreanswers;
         return userAnswers[CORRECT_ANSWERS[currentStep]];
@@ -567,7 +586,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       sendMessageToUnity("ToggleToolTray");
     }
     // Directly proceed to the next step for steps 4, 6, and 7
-    if (step === 4 ||step === 6 || step === 7 || step === 12) {
+    if (step === 4 || step === 6 || step === 7 || step === 12) {
       proceedToNextStep();
       return;
     }
@@ -583,7 +602,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           firstAttemptAnswer = answers;
           break;
         case 1:
-          firstAttemptAnswer = procedureName;
+          firstAttemptAnswer = selectedForce;
           break;
         case 2:
           firstAttemptAnswer = periodontalScreeningOptions;
@@ -639,10 +658,9 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
         setScores({ ...scores, [step]: (scores[step] || 0) - 5 });
         setTotalScore((prevTotalScore) => prevTotalScore - 5);
         setCorrectAnswerMessage(
-          `Incorrect. The correct answer is: ${
-            Array.isArray(CORRECT_ANSWERS[step])
-              ? CORRECT_ANSWERS[step].join(", ")
-              : CORRECT_ANSWERS[step]
+          `Incorrect. The correct answer is: ${Array.isArray(CORRECT_ANSWERS[step])
+            ? CORRECT_ANSWERS[step].join(", ")
+            : CORRECT_ANSWERS[step]
           }`
         );
         proceedToNextStep();
@@ -655,7 +673,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     }, 3000);
 
 
-    if (step ===15) {
+    if (step === 15) {
 
       setButtonText("Finish");
     }
@@ -667,7 +685,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
       return; // Exit the function to prevent further execution
     }
-  
+
   };
 
   const proceedToNextStep = () => {
@@ -706,7 +724,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
         return nextStep;
       });
-    } 
+    }
   };
 
   return (
@@ -857,20 +875,20 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       </div>
 
       <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1}>
-  {buttonText}
-</button>
+        {buttonText}
+      </button>
 
 
       <div>
-        
-    {correctAnswerMessage && <p style={messageBoxDynamicStyle}>{correctAnswerMessage}</p>}
-    
-</div>
 
-     
-    
-  </div>
-);
+        {correctAnswerMessage && <p style={messageBoxDynamicStyle}>{correctAnswerMessage}</p>}
+
+      </div>
+
+
+
+    </div>
+  );
 };
 
 export default BlackBoxWithButton;
