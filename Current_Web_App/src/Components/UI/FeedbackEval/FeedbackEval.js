@@ -8,7 +8,7 @@ const FeedbackEval = () => {
  
   const location = useLocation();
   const navigate = useNavigate();
-  const {totalScore, CORRECT_ANSWERS, firstAttemptAnswers,CASE1_QUESTIONS } = location.state;
+  const {totalScore, CORRECT_ANSWERS, firstAttemptAnswers,CASE1_QUESTIONS,totalMarks } = location.state;
   const shouldRenderBlackBox = location.state?.showBlackBox !== false;
 
  
@@ -35,7 +35,7 @@ const FeedbackEval = () => {
   const goToHome = () => {
     navigate('/caseSelect'); // Navigate to home page
   };
-  const scaledScore = Math.round(totalScore * (100 / 81));
+  const scaledScore = Math.round(totalScore+totalMarks * (100 / 108));
   return (
     <>
       {shouldRenderBlackBox && (
@@ -79,10 +79,13 @@ const FeedbackEval = () => {
           <h3>Correct Marking of the Tooth 25</h3>
           <img src={Painfulteeth} alt="Correct Marking of the Tooth 25" />
           </div>
-      
+          <div >
+          <strong>Your Score for History Taking: {totalMarks}</strong>
+          </div>
           <div className="total-score">
           <strong>Your Total Score: {scaledScore}</strong>
           </div>
+         
           <button onClick={goToHome} className="go-home-button">Go Back to Home</button> {/* Add this button */}
       </div>
     </>

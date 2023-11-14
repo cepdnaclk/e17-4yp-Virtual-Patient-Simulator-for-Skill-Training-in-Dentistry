@@ -714,7 +714,8 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           CORRECT_ANSWERS,
           firstAttemptAnswers,
           showBlackBox: false,
-          CASE1_QUESTIONS
+          CASE1_QUESTIONS,
+          totalMarks
         }
       });
       return; // Exit the function to prevent further execution
@@ -753,8 +754,12 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             setInstruction("Radiographs");
             setExamination("");
             break;
+            case 12:
+              setButtonText("Next");
+              break;
           case 13:
             setInstruction("Sensibility recordings");
+            setButtonText("Submit");
             break;
           default:
             break;
