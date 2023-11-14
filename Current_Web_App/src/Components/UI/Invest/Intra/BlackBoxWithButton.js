@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import CheckBoxQuestion from "./CheckBoxQuestion";
 import RadioImageQuestion from "./RadioImageQuestion";
 import imgplaqueChart from "./images/imgplaquechart.jpeg";
@@ -12,7 +12,7 @@ import img3 from "../../../../Images/200.png";
 import img4 from "../../../../Images/80.png";
 import { useNavigate } from "react-router-dom";
 import Test from "../../../Drawing/Test";
-
+import { CaseDataContext } from '../../../../CaseDataContext'; 
 import DentalChart from "../../../Dental Charts/DentalChart";
 
 // Define correct answers for each step
@@ -47,8 +47,10 @@ const CASE1_QUESTIONS = {
 };
 
 const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
+  const { caseData } = useContext(CaseDataContext);
+  const totalMarks = caseData.totalMarks;
   const [buttonText, setButtonText] = useState("Submit");
-  const [step, setStep] = useState(7);
+  const [step, setStep] = useState(-1);
   const procedureNameInputRef = useRef(null);
   const [procedureName, setProcedureName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -87,12 +89,12 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     { src: image4, value: "Diagram4" },
   ];
   const [answers, setAnswers] = useState({
-    Tweezer: false,
-    "Mouth Mirror": false,
-    "Sharp probe": false,
-    "Naber’s probe": false,
-    "Periodontal probe": false,
-    "CPI probe": false,
+    "1. Tweezer": false,
+    "2. Mouth Mirror": false,
+    "3. Sharp probe": false,
+    "4. Naber’s probe": false,
+    "5. Periodontal probe": false,
+    "6. CPI probe": false,
   });
   const [plaqscoreanswers, setplaqscoreAnswers] = useState({
     "54%": false,
@@ -197,6 +199,9 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
       });
     }
   };
+  useEffect(() => {
+    console.log("Total Marks: ", totalMarks);
+}, [totalMarks]); 
 
   const renderRadioImageQuestion = () => {
     if (step === 3) {
@@ -751,6 +756,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           ) : null}
           {step === 2 && (
             // When step is 2, you can add the new components or logic here for future additions
+            
             <div>{renderCheckBoxQuestion()}</div>
           )}
           {step === 3 && <div>{renderRadioImageQuestion()}</div>}

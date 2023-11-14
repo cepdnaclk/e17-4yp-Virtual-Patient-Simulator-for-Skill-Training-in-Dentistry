@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import background from "../../Images/DentistryBackgound.jpg";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useContext, useEffect, useState, Fragment } from "react";
 import { useSelector } from "react-redux";
 import "./Case.css";
 import Card from "@mui/material/Card";
@@ -41,6 +41,7 @@ import { TimeActions } from "../../Actions/Time/TimeActions";
 import { List, ListItem } from "@mui/material";
 import Typed from "react-typed";
 import ThreeD from "./resources/ThreeD";
+import { CaseDataContext } from '../../CaseDataContext'
 
 import imagedoc from "../../Images/doc.gif";
 import imagepet from "../../Images/pat.gif";
@@ -54,8 +55,271 @@ const useStyles = makeStyles({
   },
 });
 
+const questions = {
+  complaint: [
+    {
+      q: "Can you point to the tooth which is painful?",
+      correctness: true,
+      a: "Here it is",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/vitual-patient.appspot.com/o/Cases%2FC001%2FpointToothC001.jfif?alt=media&token=c2071e16-4945-4106-841c-34f5fe72265c",
+      cat: "complaint",
+      id: "35",
+    },
+    {
+      q: "How many days have you had pain on the tooth?",
+      cat: "complaint",
+      image: "",
+      correctness: true,
+      a: "Three days",
+      id: "5",
+    },
+    {
+      a: "Yes. Sometimes get earache",
+      cat: "complaint",
+      q: "Does the pain radiate?",
+      correctness: true,
+      id: "10",
+      image: "",
+    },
+    {
+      image: "",
+      a: "Yes. I had pain from time to time. But for the last three days I had continuous pain and could not sleep at night due to the pain",
+      correctness: true,
+      cat: "complaint",
+      q: "Have you had any pain before?",
+      id: "6",
+    },
+    {
+      cat: "complaint",
+      id: "41",
+      correctness: false,
+      q: "Have you got any restorations done on that tooth?",
+      image: "",
+      a: "No",
+    },
+    {
+      correctness: true,
+      q: "Do you have pain when biting on that tooth?",
+      a: "Yes difficult to eat from that side",
+      id: "8",
+      image: "",
+      cat: "complaint",
+    },
+    {
+      image: "",
+      a: "I bought some tablets from the pharmacy. But the pain did not reduce much",
+      cat: "complaint",
+      id: "11",
+      q: "Have you taken any treatments before for the pain?",
+      correctness: true,
+    },
+    {
+      correctness: false,
+      image: "",
+      a: "Don't know",
+      id: "40",
+      q: "Is it on a molar tooth?",
+      cat: "complaint",
+    },
+    {
+      image: "",
+      a: "No",
+      q: "Do you have pain on percussion?",
+      correctness: false,
+      id: "7",
+      cat: "complaint",
+    },
+    {
+      q: "Can you point to the tooth which is painful?",
+      correctness: true,
+      a: "This is it",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/vitual-patient.appspot.com/o/Cases%2FC001%2FpointToothC001.jfif?alt=media&token=c2071e16-4945-4106-841c-34f5fe72265c",
+      cat: "complaint",
+      id: "35",
+    },
+    // More items would be here...
+  ],
+  plaque: [
+    {
+      image: "",
+      cat: "plaque",
+      a: "A normal toothbrush",
+      q: "What is the brush type you use?",
+      correctness: true,
+      id: "18",
+    },
+    {
+      correctness: true,
+      cat: "plaque",
+      id: "20",
+      q: "Do you use toothpaste?",
+      a: "Yes",
+      image: "",
+    },
+    {
+      id: "21",
+      a: "I am not sure",
+      image: "",
+      cat: "plaque",
+      q: "Do you know whether it contains fluoride?",
+      correctness: true,
+    },
+    {
+      correctness: true,
+      a: "I brush with toothpaste ",
+      q: "How do you clean your mouth?",
+      image: "",
+      id: "3",
+      cat: "plaque",
+    },
+    {
+      correctness: true,
+      id: "17",
+      image: "",
+      cat: "plaque",
+      q: "How many times do you brush per day?",
+      a: "Two times. Sometimes miss during the night",
+    },
+    {
+      correctness: true,
+      id: "22",
+      image: "",
+      cat: "plaque",
+      q: "Do you use any other tools other than the toothbrush to clean the mouth?",
+      a: "no",
+    },
+    {
+      cat: "plaque",
+      a: "I am not sure",
+      correctness: true,
+      image: "",
+      id: "19",
+      q: "What is the bristle type of the toothbrush?",
+    },
+    {
+      image: "",
+      cat: "plaque",
+      a: "A normal toothbrush",
+      q: "What is the brush type you use?",
+      correctness: true,
+      id: "18",
+    },
+    // More items would be here...
+  ],
+  dhistory: [
+    {
+      image: "",
+      a: "When hungry in between meals Eat biscuits with tea in the evening",
+      cat: "dhistory",
+      correctness: true,
+      q: "When do you usually eat sugary or sweet foods?",
+      id: "24",
+    },
+    {
+      id: "24",
+      a: "When hungry in between meals Eat biscuits with tea in the evening",
+      cat: " dhistory",
+      correctness: true,
+      q: "When do you usually eat sugary or sweet foods?",
+      image: "",
+    },
+    {
+      a: "Most of the days yes",
+      cat: "dhistory",
+      correctness: true,
+      id: "23",
+      q: "Do you eat sugary food/sweets daily?",
+      image: "",
+    },
+    // More items would be here...
+  ],
+  // Other categories would be here...
+  medicalH: [
+    {
+      q: "Are you attending a medical clinic?",
+      a: "no",
+      cat: "medicalH",
+      correctness: true,
+      id: "4",
+      image: "",
+    },
+    {
+      a: "no",
+      id: "15",
+      cat: "medicalH",
+      q: "Do you have any allergies? ",
+      image: "",
+      correctness: true,
+    },
+    {
+      image: "",
+      id: "14",
+      cat: "medicalH",
+      correctness: true,
+      q: "Are you taking regular drugs for any disease?",
+      a: "no",
+    },
+    {
+      q: "Have you had any operations or hospitalizations?",
+      cat: "medicalH",
+      correctness: true,
+      image: "",
+      id: "13",
+      a: "no",
+    },
+  ],
+  habits: [
+    {
+      id: "2",
+      correctness: true,
+      a: "no",
+      cat: "habits",
+      image: "",
+      q: "Do you chew betel or areca nuts?",
+    },
+    {
+      image: "",
+      a: "no",
+      cat: "habits",
+      q: "Do you smoke or use any form of tobacco?",
+      correctness: true,
+      id: "1",
+    },
+    {
+      image: "",
+      a: "no",
+      q: "Do you drink alcohol?",
+      cat: "habits",
+      id: "0",
+      correctness: true,
+    },
+  ],
+  shistory: [
+    {
+      cat: "shistory",
+      id: "30",
+      image: "",
+      q: "Are you doing a job?",
+      a: "Yes doing business. Have a grocery shop",
+      correctness: true,
+    },
+  ],
+  pretreate: [
+    {
+      q: "What dental treatments have you had before?",
+      id: "28",
+      cat: "pretreate",
+      image: "",
+      a: "Teeth cleaning and fillings. Could not attend a dental clinic for a long time",
+      correctness: true,
+    },
+  ],
+};
+
 function CaseDesc() {
-  const [questions, setQuestions] = useState([]);
+  const { setCaseData } = useContext(CaseDataContext);
   const [selectedQId, setSelectedQId] = useState([]);
   const { userInfomation } = useSelector((state) => state.user);
   const { sectionOrder } = useSelector((state) => state.historyQ);
@@ -65,129 +329,99 @@ function CaseDesc() {
   const [value, setValue] = useState("");
   const [Section, setSection] = useState("");
   const [ans, setAns] = useState("");
-  const [selectedQ, setSelectedQ] = useState("");
 
   const { selectedQdata } = useSelector((state) => state.historyQ);
   const { selectedCaseDetails } = useSelector((state) => state.caseSelected);
   const { isSubmitDiagnosis } = useSelector((state) => state.diagnosisQ);
   const dispatch = useDispatch();
 
-  const initialState = {};
-  const resetState = () => {
-    setQuestions(initialState);
-  };
-  const mapValuesToState = (qArray) => {
-    console.log("qarray:", qArray);
-    // setQuestions(initialState)
-    qArray.map((item) => setQuestions(item));
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [questionsForDropdown, setQuestionsForDropdown] = useState([]);
 
-    console.log(questions);
-  };
+  const [selectedQ, setSelectedQ] = useState([]);
+  const [selectedQIds, setSelectedQIds] = useState([]);
 
-  useEffect(() => {
-    setSelectedQ(selectedQdata);
-    fetchQuestions(selectedQdata);
-  }, []);
+  const handleSection = (eventKey) => {
+    // Set the selected section state
+    setSelectedSection(eventKey);
 
-  const fetchQuestions = async () => {
-    console.log(selectedCaseDetails.caseId);
-    const snapshot = await firebase
-      .firestore()
-      .collection(selectedCaseDetails.caseId)
-      .get();
-    const qArray = snapshot.docs.map((doc) => doc.data());
-    dispatch(historyTakingActions.addAllHTQdata(qArray));
-    if (questions.length < qArray.length) {
-      setQuestions(questions.concat(qArray));
-    }
+    // Extract the questions for the selected section from the questions object
+    const filteredQuestions = questions[eventKey].map((item) => ({
+      id: item.id,
+      q: item.q,
+    }));
+
+    // Update the state to hold the filtered questions for the second dropdown
+    setQuestionsForDropdown(filteredQuestions);
+    console.log(questionsForDropdown);
   };
 
-  const handleSelect = (e) => {
-    setValue(e);
-    setIdOfQ(e);
-    for (let item of questions) {
-      // let num= e.toString()
-      if (item.id == e.toString() && !isSubmitDiagnosis) {
-        setSelectedQ(
-          // Replace the state
-          [
-            // with a new array
-            ...selectedQ, // that contains all the old items
-            item, // and one new item at the end
-          ]
-        );
-        dispatch(historyTakingActions.addselectedQdata(item));
-      }
-    }
-    setSelectedQId(
-      // Replace the state
-      [
-        // with a new array
-        ...selectedQId, // that contains all the old items
-        e.toString(), // and one new item at the end
-      ]
+  const handleSelect = (eventKey, event) => {
+    console.log(eventKey);
+    // Find the selected question object using the eventKey which is the id
+    const selectedQuestion = questions[selectedSection].find(
+      (q) => q.id == eventKey
     );
 
-    console.log(selectedQId);
+    console.log(selectedQuestion);
 
-    if (e === "Question-1") {
-      setAns("Ans1");
-    }
-  };
-
-  const displayq = (e) => {
-    const QList = questions;
-  };
-
-  const handleSection = (e) => {
-    setSection(e);
-    displayq(e);
-    if (!isSubmitDiagnosis) {
-      dispatch(historyTakingActions.setSelectionOrder(e));
-    }
-    // if(isSubmitDiagnosis){
-    //   dispatch(ExaminationActions.clearhistory())
-    //   dispatch(CaseActions.clearhistory())
-    //   dispatch(DiagnosisActions.clearhistory())
-    //   dispatch(DentalSheetActions.clearhistory())
-    //   dispatch(historyTakingActions.clearhistory())
-    //   dispatch(InvestigationActions.clearhistory())
-    //   dispatch(ScoreActions.clearhistory())
-    //   dispatch(TimeActions.clearhistory())
-    // }
+    // Update the selected questions array and the selected question ids array
+    setSelectedQ((prevSelectedQ) => [...prevSelectedQ, selectedQuestion]);
+    setSelectedQIds((prevSelectedQIds) => [
+      ...prevSelectedQIds,
+      selectedQuestion.id,
+    ]);
   };
 
   const handleClick = () => {
+    let totalMarks = 0;
+
+    // Assume 'questions' is an object with categories as keys and arrays of question objects as values.
+    selectedQIds.forEach((id) => {
+      // Find the question object by id in the 'questions' object
+      for (const category in questions) {
+        const question = questions[category].find((q) => q.id === id);
+
+        // If the question is found and correctness is defined
+        if (question && question.correctness !== undefined) {
+          // Update the total marks based on correctness
+          totalMarks += question.correctness ? 10 : -5;
+        }
+      }
+    });
+
+    const sel = selectedQ.map((item) => item.q);
+
+    const correctAnswersArray = [];
+
+    // Iterate over each category in the questions object
+    for (const category in questions) {
+      // Filter out questions with correctness set to True within the category
+      const correctAnswers = questions[category].filter(
+        (question) => question.correctness
+      );
+
+      // Concatenate the correct answers to the correctAnswersArray
+      correctAnswersArray.push(...correctAnswers);
+    }
+
+    // Log the total marks
+    console.log("Total Marks:", totalMarks);
+    console.log("slected ans", sel);
+    console.log("correct ans", correctAnswersArray);
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     // Delay the navigation slightly to allow the scroll to happen
     setTimeout(() => {
       navigate("/page4");
     }, 500); // 500ms delay
+
+    setCaseData(previousData => ({ ...previousData, totalMarks }));
   };
 
   const handleClick1 = () => {
     navigate("/caseSelect");
-    if (isSubmitDiagnosis) {
-      dispatch(ExaminationActions.clearhistory());
-      dispatch(CaseActions.clearhistory());
-      dispatch(DiagnosisActions.clearhistory());
-      dispatch(DentalSheetActions.clearhistory());
-      dispatch(historyTakingActions.clearhistory());
-      dispatch(InvestigationActions.clearhistory());
-      dispatch(ScoreActions.clearhistory());
-      dispatch(TimeActions.clearhistory());
-    }
   };
-  console.log(userInfomation.name);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(0.5),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
 
   return (
     <div
@@ -338,19 +572,11 @@ function CaseDesc() {
                     onSelect={handleSelect}
                     variant="success"
                   >
-                    {Section &&
-                      questions
-                        .filter((question) => question.cat.includes(Section))
-                        .map((filteredName) => (
-                          <li>
-                            <Dropdown.Item
-                              onClick={handleSelect}
-                              eventKey={filteredName.id}
-                            >
-                              {filteredName.q}
-                            </Dropdown.Item>
-                          </li>
-                        ))}
+                    {questionsForDropdown.map((question, index) => (
+                      <Dropdown.Item eventKey={question.id} key={question.id}>
+                        {question.q}
+                      </Dropdown.Item>
+                    ))}
                   </DropdownButton>
                 </div>
               </Grid>

@@ -1,4 +1,5 @@
-import React from "react";
+import { React , useContext } from "react";
+import { CaseDataProvider } from './CaseDataContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import SignIn from "./Components/SignIn";
 import CaseDesc from "./Components/UI/CaseDesc"
@@ -21,6 +22,7 @@ function App() {
     return (
         <Provider store={store}>
             <Router>
+            <CaseDataProvider>
                 <Routes>
                     {/* <Route exact path="/home" element={<Home/>}/> */}
                     <Route exact path="/" element={<SignIn/>}/>
@@ -53,6 +55,7 @@ function App() {
                    
                    
                 </Routes>
+                </CaseDataProvider>
             </Router>
             </Provider>
     );
