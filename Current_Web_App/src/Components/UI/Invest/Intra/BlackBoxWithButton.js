@@ -33,7 +33,7 @@ const CORRECT_ANSWERS = {
 const CASE1_QUESTIONS = {
   // Example structure, adjust based on your actual questions
   0: "Select the instruments needed to carry out the periodontal screening",
-  1: "What is the name of this procedure?",
+  1: "According to the guidelines, what is the force that should be applied on the instrument during BPE?",
   2: "Select the features of the instrument used for the periodontal screening.",
   3: "Select the diagram which denotes code 3",
   5: "Select the instruments needed to carry out the hard tissue assessment",
@@ -63,6 +63,13 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     `2. Click the "Enter Intra Oral View" button.\n` +
     `3. Press "1" to use the dental mirror tool.\n` +
     `4. By observing the intra-oral view, mark the dental chart accordingly.\n` +
+    `5. Submit your assessment.`
+  );
+  const [instructionsText2, setInstructionsText2] = useState(
+    `1. Scroll down.\n` +
+    `2. Click the "Enter Intra Oral View" button.\n` +
+    `3. Press "1" to use the dental mirror tool.\n` +
+    `4. By observing the intra-oral view, mark the defect of tooth 25 accordingly.\n` +
     `5. Submit your assessment.`
   );
 
@@ -142,6 +149,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
 
   const handleMarks = (mark1, mark2) => {
     setMarks({ mark1, mark2 });
+    setStep(currentStep => currentStep + 1);
     // Additional code to test the received data (e.g., logging it to the console)
     console.log(`Received marks: mark1 = ${mark1}, mark2 = ${mark2}`);
   };
@@ -169,7 +177,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     setStep(currentStep => currentStep + 1);
   };
   // Function to handle checkbox changes
-  
+
 
   const handleCheckboxChange = (option) => {
     console.log(`handleCheckboxChange called with option: ${option}`);
@@ -557,7 +565,7 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     let userAnswers;
     switch (currentStep) {
       case 1:
-      return selectedForce === CORRECT_ANSWERS[currentStep];
+        return selectedForce === CORRECT_ANSWERS[currentStep];
       case 9:
         userAnswers = plaqscoreanswers;
         return userAnswers[CORRECT_ANSWERS[currentStep]];
@@ -685,14 +693,25 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
     setTimeout(() => {
       setCorrectAnswerMessage("");
     }, 3000);
-
+    const finalScore = totalScore + (marks.mark1 || 0) + (marks.mark2 || 0);
+    if (scoreData && scoreData.score) {
+      finalScore += scoreData.score;
+    }
     if (step === 15) {
 
       setButtonText("Finish");
     }
     // Show review page when "Finish" button is clicked
     if (step === 15 && buttonText === "Finish") {
-      navigate('/feedback', { state: { totalScore, CORRECT_ANSWERS, firstAttemptAnswers, showBlackBox: false, CASE1_QUESTIONS } });
+      navigate('/feedback', {
+        state: {
+          totalScore: finalScore, // Pass the final score
+          CORRECT_ANSWERS,
+          firstAttemptAnswers,
+          showBlackBox: false,
+          CASE1_QUESTIONS
+        }
+      });
       return; // Exit the function to prevent further execution
     }
 
@@ -716,11 +735,11 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             setExamination("Hard Tissue Assessment");
             setButtonText("Submit");
             break;
-            
+
           case 6:
-                setQuestionMessage("")
-             
-                break;
+            setQuestionMessage("")
+
+            break;
           case 10:
             setInstruction("Investigation");
             setExamination("");
@@ -778,24 +797,61 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
             // When step is 2, you can add the new components or logic here for future additions
             <div>{renderCheckBoxQuestion()}</div>
           )}
-{step === 6 && (
-        <div>
-          {/* Render the instructions text */}
-          <div className="instructions">
-            {instructionsText.split('\n').map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
-          </div>
+          {step === 6 && (
+            <div>
+              {/* Render the instructions text */}
+              <div className="instructions">
+                {instructionsText.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </div>
 
-          {/* DentalChart component */}
-          <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
-        </div>
-      )}
-        {step === 7 && (
-  <div>
-    <Test onSubmit={handleMarks} />
-  </div>
-)}
+              {/* DentalChart component */}
+              <DentalChart onScoreSubmit={handleScoreData}></DentalChart>
+            </div>
+          )}
+          {step === 7 && (
+            <div>
+              {/* Render the instructions text */}
+              <div className="instructions">
+                {instructionsText2.split('\n').map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+
+              {/* Container for the Test component */}
+              <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginLeft: '500px' }}>
+                <Test onSubmit={handleMarks} />
+              </div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+
+          )}
 
           {step === 8 && (
             // When step is 2, you can add the new components or logic here for future additions
@@ -892,9 +948,9 @@ const BlackBoxWithButton = ({ unityData, sendMessageToUnity }) => {
           {step === 15 && <div>{renderCheckBoxQuestion()}</div>}
         </div>
       </div>
-      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1 || step===6}>
-  {buttonText}
-</button>
+      <button style={buttonStyle} onClick={handleButtonClick} disabled={step === -1 || step === 6 ||step === 7}>
+        {buttonText}
+      </button>
 
       <div>
 
