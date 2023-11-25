@@ -115,9 +115,10 @@ The virtual dental training system was meticulously crafted, adhering to a compr
 2. **History-Taking Content Development**
 3. **Question and Answer Formulation**
 4. **Virtual Patient With Mouth Defects Modeling**
-5. **Dental Tool Tray Modeling**
-6. **Dental Chart Design**
-7. **Feedback Mechanism Development**
+   ![Alt Text](images/mouthmodel.gif)
+6. **Dental Tool Tray Modeling**
+7. **Dental Chart Design**
+8. **Feedback Mechanism Development**
    
 These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
 
