@@ -110,16 +110,30 @@ Finally, the system provides Feedback to the students, reflecting on their choic
 The virtual dental training system was meticulously crafted, adhering to a comprehensive development methodology:
 
 1. **Clinical Case Formulation**
-2. **History-Taking Content Development**
-    <img src="images/historytaking.gif" width="200"> <!-- Adjust the width as needed -->
-4. **Question and Answer Formulation**
-5. **Virtual Patient With Mouth Defects Modeling**  
-   <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
-6. **Dental Tool Tray Modeling**
-   <img src="images/tooltray.png" width="400"> <!-- Adjust the width as needed -->
-7. **Dental Chart Design**
-    <img src="images/dentalchart.png" width="400"> <!-- Adjust the width as needed -->
-9. **Feedback Mechanism Development**
+
+2. **History-Taking Content Development**  
+   <div align="left">
+     <img src="images/historytaking.gif" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+3. **Question and Answer Formulation**
+
+4. **Virtual Patient With Mouth Defects Modeling**  
+   <div align="left">
+     <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+5. **Dental Tool Tray Modeling**  
+   <div align="left">
+     <img src="images/tooltray.png" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+6. **Dental Chart Design**  
+   <div align="left">
+     <img src="images/dentalchart.jpeg" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+7. **Feedback Mechanism Development**
 
 These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
 
@@ -134,6 +148,25 @@ The next phase involved the detailed modeling of the oral cavity, complete with 
 We then turned our attention to the design of the essential dental tool tray and the dental chart. Our aim was to enable students to accurately mark defects of any shape with the corresponding color, thereby fostering a hands-on approach to identifying and documenting dental issues.
 
 The culmination of our development process was the establishment of an evaluation criteria. This was engineered to rigorously assess the performance of students, providing a quantitative measure of their proficiency and areas for improvement within the simulated environment. This systematic approach to the system's development is intended to provide dental students with a comprehensive, realistic, and effective learning tool.
+
+### **Feedback Mechanism**
+1. **History Taking**
+
+2. **Questionnaire**  
+  
+3. **Dental Chart**
+
+4. **Final Feedback**  
+ 
+   The feedback mechanism of our system is designed to be educational yet challenging, actively engaging students in critical thinking throughout the learning process.
+
+During the history-taking stage, the system presents a mix of relevant and non-relevant questions for each section. Students are encouraged to discern and select the appropriate questions, for which they receive positive marks, while incorrect selections result in negative marks, promoting attentiveness and decision-making akin to real-life clinical settings.
+
+Following history taking, students interact with a 3D simulator for practical examinations. Their understanding is further tested through a questionnaire that requires accurate responses based on their observations. The system allows three attempts for each question, though marks are awarded only for the correct answers on the first attempt. Incorrect responses initially incur negative marks to emphasize the importance of accuracy. Subsequent attempts are provided for educational purposes, allowing students to learn from their mistakes without additional penalty. If a student struggles to find the right answer, the correct one is revealed after the third attempt, ensuring a continuous learning opportunity.
+
+In the evaluation phase, where students mark the dental chart, precision is rewarded. Correct markings on the chart reflect the student's grasp of the examination and result in additional marks.
+
+The system culminates in comprehensive feedback for each section, where students can review their first attempts alongside the correct answers, reinforcing the learning experience. Finally, the student's overall performance is quantified with a final score out of 100, providing a clear measure of their competency in the simulated environment. This meticulous approach to feedback is not only a reflection of their current knowledge but also a roadmap for areas that require further study and understanding.
 
 ## Publications
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
