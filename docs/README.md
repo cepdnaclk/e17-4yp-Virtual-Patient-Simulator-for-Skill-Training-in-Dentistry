@@ -38,7 +38,8 @@ title: Virtual Patient Simulator for Skill Training in Dentistry
 ---
 
 ## Abstract
-Explore the potential of integrating Virtual Reality (VR) and Artificial Intelligence (AI) techniques to increase the effectiveness of skill training in dentistry by providing personalised instruction, assessment and formative feedback in a form and on a scale not possible in the physical world. The systems being built promise to provide dental students with an increased amount of guided practice at a relatively low cost.
+Our project aims to create a 3D virtual patient simulator to help dental students practice patient assessments, a crucial skill, especially during times like the pandemic when traditional hands-on learning is challenging. Regular training can be limiting and risky, but our simulator provides various scenarios safely. Building this simulator involves challenges, including complex 3D modeling and potential high costs. We used the Unity game engine for interactive features and Blender for precise modeling, creating a detailed virtual dental clinic where students can practice both outside and inside mouth examinations. They can also work with digital versions of dental tools and x-rays for different cases. Future updates will include haptic feedback for a more realistic Virtual Reality (VR) experience, with built-in grading systems to assess student performance. Early tests show our approach is cost-effective and could significantly improve dental education by preparing students better for real-world dental work.
+
 ---
 ## Related works
 
@@ -86,67 +87,153 @@ Traditional paper-based PBL methods can limit students' learning pathways, restr
 Studies suggest a correlation between PBL practice and improved exam performance, showing the effectiveness of virtual training platforms integrated with PBL in medical education. However, there is still a need for a more extensive range of dental cases within the PBL framework.
 
 Artificial intelligence can be a significant game-changer in this field. An AI chatbot in the virtual patient simulator can expand the range of scenarios and provide a controlled, engaging, and safe learning environment. This system could efficiently engage students comfortable with digital technology, making it easier for them to adapt to technological advancements in their field. This strategy could bridge the gap in current PBL methods, providing a comprehensive, dynamic, and interactive learning experience for students in dental education.
+
 ---
 
 ## Methodology
 
-### **3D Patient Simulator**
+### **System Outline**
+![System Outline](images/systemoutline.png)
 
-#### Existing System 
-- Intra oral view of a mouth
+In this virtual training system, dental students begin by selecting a specific clinical case, which sets the context for their learning experience. Once a case is chosen, they proceed to the History Taking stage, where they collect all relevant patient history, emulating the process in a real clinical environment.
 
-### Enhancement to the system
+The next step involves conducting an Extra Oral View Examination, where students assess the patient's facial features for any signs indicative of dental health issues. This is followed by an examination of the Intra Oral View, which requires students to inspect the inside of the patient's mouth for a thorough oral evaluation.
 
-#### Interactive 3D Dental Room Model: 
-- Develop a 3D model of a dental clinic, complete with all necessary instruments, for a more realistic user experience.
+Subsequently, students must decide which investigations are necessary based on the clinical scenario. This decision-making process includes analyzing the radiographs provided for the case, integrating these findings into their assessment.
 
-##### Instrument Selection: 
-- Enable users to select and interact with dental instruments within the virtual environment, fostering familiarity and dexterity.
+With the collected data, students are then tasked with formulating a Prognosis, synthesizing the patient's history, examination results, and investigative data to predict the course and outcome of dental conditions.
 
-##### Virtual Dental Operations: 
-- Allow users to conduct virtual dental operations, reinforcing practical skills and promoting the application of theoretical knowledge.
+Finally, the system provides Feedback to the students, reflecting on their choices and performance throughout the simulation. This feedback aims to guide students' learning, helping them understand their areas of strength and those requiring further improvement.
 
-##### Radiograph Selection: 
-- Give users the ability to choose and analyze relevant radiographs, enhancing diagnostic skills and understanding.
+### **Development Methodology**
 
-##### Haptic Device Integration: 
-- Incorporate haptic devices to simulate tactile sensations, providing a more immersive and realistic learning experience.
+The virtual dental training system was meticulously crafted, adhering to a comprehensive development methodology:
 
-##### Virtual Reality (VR) Application: 
-- Extend the platform to support VR usage, offering a fully immersive, hands-on training experience in a risk-free, virtual environment.
+1. **Clinical Case Formulation**
 
-### **Intelligent Tutoring System**
+2. **History-Taking Content Development**  
+   <div align="left">
+     <img src="images/historytaking.gif" width="400"> <!-- Adjust the width as needed -->
+   </div>
 
-##### Existing System 
+3. **Question and Answer Formulation**
 
-- The virtual patient web interface was designed including the main three phases of patient assessment in dentistry (History taking, Examination and Investigation, Diagnosis
+4. **Virtual Patient With Mouth Defects Modeling**  
+   <div align="left">
+     <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
+   </div>
 
-### Enhancement to the system
+5. **Dental Tool Tray Modeling**  
+   <div align="left">
+     <img src="images/tooltray.png" width="400"> <!-- Adjust the width as needed -->
+   </div>
 
-#### Expanded Clinical Case Database: 
-- Increase the number and diversity of clinical cases to provide a comprehensive learning experience.
+6. **Dental Chart Design**  
+   <div align="left">
+     <img src="images/dentalchart.jpeg" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+7. **Feedback Mechanism Development**
+
+These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
+
+The development methodology for our virtual dental training system is structured to mirror the complexity and depth of real-world clinical scenarios. We began by creating a variety of clinical cases, which were meticulously cataloged in a Firebase database. The formulation of each case was carefully designed to follow the progression observed in actual dental treatments.
+
+With the framework of cases established, we moved on to develop the content for history taking. This crucial step was crafted with the guidance and expertise of seasoned dental professionals to ensure accuracy and relevance.
+
+Subsequently, we crafted a set of questions and answers tailored to each phase of the clinical examination, building on the foundational information presented in the prior stage of development.
+
+The next phase involved the detailed modeling of the oral cavity, complete with various defects to reflect a realistic clinical setting. This allowed for an immersive experience that closely mimics the visual and diagnostic challenges encountered by dental practitioners.
+
+We then turned our attention to the design of the essential dental tool tray and the dental chart. Our aim was to enable students to accurately mark defects of any shape with the corresponding color, thereby fostering a hands-on approach to identifying and documenting dental issues.
+
+The culmination of our development process was the establishment of an evaluation criteria. This was engineered to rigorously assess the performance of students, providing a quantitative measure of their proficiency and areas for improvement within the simulated environment. This systematic approach to the system's development is intended to provide dental students with a comprehensive, realistic, and effective learning tool.
+
+### **Feedback Mechanism in Detail**
+1. **History Taking**
+
+2. **Questionnaire**  
   
-##### Enhanced Patient Visualization: 
-- Incorporate 3D facial modeling to provide a more realistic extraoral view, improving diagnostic and treatment planning skills.
+3. **Dental Chart**
+
+4. **Final Feedback**  
+ 
+The feedback mechanism of our system is designed to be educational yet challenging, actively engaging students in critical thinking throughout the learning process.
+
+During the history-taking stage, the system presents a mix of relevant and non-relevant questions for each section. Students are encouraged to discern and select the appropriate questions, for which they receive positive marks, while incorrect selections result in negative marks, promoting attentiveness and decision-making akin to real-life clinical settings.
+
+Following history taking, students interact with a 3D simulator for practical examinations. Their understanding is further tested through a questionnaire that requires accurate responses based on their observations. The system allows three attempts for each question, though marks are awarded only for the correct answers on the first attempt. Incorrect responses initially incur negative marks to emphasize the importance of accuracy. Subsequent attempts are provided for educational purposes, allowing students to learn from their mistakes without additional penalty. If a student struggles to find the right answer, the correct one is revealed after the third attempt, ensuring a continuous learning opportunity.
+
+In the evaluation phase, where students mark the dental chart, precision is rewarded. Correct markings on the chart reflect the student's grasp of the examination and result in additional marks.
+
+The system culminates in comprehensive feedback for each section, where students can review their first attempts alongside the correct answers, reinforcing the learning experience. Finally, the student's overall performance is quantified with a final score out of 100, providing a clear measure of their competency in the simulated environment. This meticulous approach to feedback is not only a reflection of their current knowledge but also a roadmap for areas that require further study and understanding.
+
+## Experiment Setup and Implementation
+### **Experiment Structure**
+<div align="left">
+     <img src="images/experimentstructure.png" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+An experiment was conducted to evaluate the effectiveness of a virtual patient simulator compared to traditional teaching methods for dental undergraduate students. Participants were split into two groups: one received conventional teaching through PowerPoint presentations, and the other used a virtual patient simulator. Both groups took a pre-assessment test to gauge their initial knowledge and skills. After the respective educational interventions, a post-assessment was conducted to measure the learning outcomes. The study aimed to assess the benefits and effectiveness of simulation-based learning over traditional methods in dental education. It utilized a mixed design with two independent variables: the type of educational treatment and the time factor from pretest to posttest. This allowed for a nuanced analysis of different teaching approaches.
+
+1.**Pre-Intervention and Post-Intervention Phases**
+The study’s methodology encompassed two main phases: Pre-Intervention and Post-Intervention. Initially, the Pre-Intervention phase assessed the students’ foundational abilities in patient assessment and clinical reasoning. This was done using pre-questionnaires and pre-tests to determine their skill level and perceptions prior to using the virtual patient simulator. After the intervention, during the Post-Intervention phase, similar tools were used to evaluate any improvement or changes in the students' abilities and perceptions. The comparative analysis between the Pre- and Post-Intervention data was essential to establish the impact of the virtual patient simulator on the students' clinical skills.
+
+2.**Questionnaire (Self-assessment)**
+A comprehensive questionnaire was administered to students before and after the intervention to measure their self-perceived learning outcomes. This self-assessment aimed to gather insights into three domains: history taking, clinical examination skills, and overall patient assessment knowledge. Specifically, it focused on students' confidence in their ability to collect and interpret patient histories, their proficiency in conducting clinical examinations, and their overall perceived competence in patient assessment. Students rated their skills on a Likert scale, which provided a quantifiable measure of their self-assessment. Analyzing the responses from before and after the intervention was key to assessing the impact of the virtual patient simulator as compared to traditional teaching methods in bolstering students' clinical skills and knowledge.
+
+3,**Tests (Pre- and Post-Intervention Assessment)**
+To establish a performance baseline, a pretest was given to students on a dental case that differed from the one used during the intervention. This aimed to measure their initial patient assessment skills. Following the intervention, a post-test was conducted on the same dental case encountered during the intervention phase, whether it was through the virtual simulator or traditional methods. The post-test evaluated the students' comprehension, analytical abilities, and practical application of the knowledge to a real-world scenario. By contrasting the results of the pre- and post-tests, the study sought to quantify the educational impact of each teaching approach, with a particular focus on the effectiveness of the virtual patient simulator in improving dental clinical education outcomes.
+
+## Results and Analysis
+#### Google Form Questionnaire Test
+1.**Analysis of Control Group Data**
+<div align="left">
+ <img src="images/control_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
+    </div>
+    
+2.**Analysis of Intervention Group Data**
+   <div align="left">
+ <img src="images/intervention_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
+       </div>
+       
+3.**Comparison Between Contro and Intervention Group Data**
+      <div align="left">
+ <img src="images/comparison_GF.png" width="700"> <!-- Adjust the width as needed -->
+          </div>
+          
+4.**Average Ratings on the Experience Of 3D Virtual Environment**
+         <div align="left">
+ <img src="images/average_ratings_overall.png" width="700"> <!-- Adjust the width as needed -->
+             </div>
+#### Written Assessment Test
+
+1.**Analysis of Written Test scores**
+            <div align="left">
+ <img src="images/writtenTestScores.png" width="700"> <!-- Adjust the width as needed -->
+                </div>
+
+2.**Comparison Between Control and Intervention Group Data**
+               <div align="left">
+ <img src="images/comparison_TestScores.png" width="700"> <!-- Adjust the width as needed -->
+  </div>
   
-##### Advanced Auto-Suggest Feature: 
-- Implement an auto-suggestion system that recommends dental clinical terms as users type, improving efficiency and accuracy
+## Conclusion
 
-##### Improved Question Flow Testing: 
--Implement testing to verify the correct sequence of questions based on patient responses.
+The study investigated the effectiveness of a virtual patient simulator as a teaching tool in dental education, comparing it with traditional methods. The findings showed no significant quantitative difference in enhancing history-taking, clinical examination skills, or overall patient assessment. However, qualitatively, students responded favorably to the simulator, indicating high engagement and usability. Despite the lack of significant quantitative improvements, the positive qualitative feedback suggests that the simulator could serve as an effective supplementary educational tool.
 
-##### Dynamic Question Paraphrasing: 
-- Refresh predefined questions and answers to add dynamism and maintain user engagement.
+There was a notable enhancement in dental assessment skills within the intervention group, hinting at the simulator's potential when focused on particular skills. This points to the possible benefits of integrating such technologies into dental education, especially as part of a comprehensive educational strategy.
 
-##### Intelligent Feedback Mechanism: 
-- Develop a smart feedback system that guides users in choosing relevant questions and improves their questioning skills.
+The study was limited by its small sample size and preliminary testing phase, suggesting the need for further research with a larger, diverse cohort, a mix of assessment tools, more clinical scenarios, and longer simulator interaction. While the study did not conclusively prove the simulator's superiority, it highlighted the promise of technology-enhanced learning tools in preparing dental students for clinical practice, provided they are optimized for educational use.
 
 ## Publications
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
 
 
-1. [Semester 7 report](./Publications/)
-2. [Semester 7 slides](./Publications/)
+1. [Semester 7 report](./images/semester7_Intro_LR.pdf)
+2. [Semester 7 slides](./images/semester7_Intro_LR)
+3. [Semester 8 report](./images/semester7_Intro_LR)
+2. [Semester 8 slides](./images/semester7_Intro_LR)
 <!-- 5. Author 1, Author 2 and Author 3 "Research paper title" (2021). [PDF](./). -->
 
 
