@@ -39,6 +39,7 @@ title: Virtual Patient Simulator for Skill Training in Dentistry
 
 ## Abstract
 Explore the potential of integrating Virtual Reality (VR) and Artificial Intelligence (AI) techniques to increase the effectiveness of skill training in dentistry by providing personalised instruction, assessment and formative feedback in a form and on a scale not possible in the physical world. The systems being built promise to provide dental students with an increased amount of guided practice at a relatively low cost.
+
 ---
 ## Related works
 
@@ -86,6 +87,7 @@ Traditional paper-based PBL methods can limit students' learning pathways, restr
 Studies suggest a correlation between PBL practice and improved exam performance, showing the effectiveness of virtual training platforms integrated with PBL in medical education. However, there is still a need for a more extensive range of dental cases within the PBL framework.
 
 Artificial intelligence can be a significant game-changer in this field. An AI chatbot in the virtual patient simulator can expand the range of scenarios and provide a controlled, engaging, and safe learning environment. This system could efficiently engage students comfortable with digital technology, making it easier for them to adapt to technological advancements in their field. This strategy could bridge the gap in current PBL methods, providing a comprehensive, dynamic, and interactive learning experience for students in dental education.
+
 ---
 
 ## Methodology
