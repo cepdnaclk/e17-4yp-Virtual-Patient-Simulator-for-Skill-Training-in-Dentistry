@@ -107,21 +107,20 @@ Finally, the system provides Feedback to the students, reflecting on their choic
 
 ### **Development Methodology**
 
-## Development Methodology
-
-The virtual dental training system was meticulously crafted, adhering to a comprehensive development methodology
+The virtual dental training system was meticulously crafted, adhering to a comprehensive development methodology:
 
 1. **Clinical Case Formulation**
 2. **History-Taking Content Development**
 3. **Question and Answer Formulation**
-4. **Virtual Patient With Mouth Defects Modeling**
-   ![Alt Text](images/mouthmodel.gif)
-6. **Dental Tool Tray Modeling**
+4. **Virtual Patient With Mouth Defects Modeling**  
+   <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
+5. **Dental Tool Tray Modeling**
+   <img src="images/tooltray.gif" width="400"> <!-- Adjust the width as needed -->
 7. **Dental Chart Design**
-8. **Feedback Mechanism Development**
-   
-These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
+    <img src="images/dentalchart.gif" width="400"> <!-- Adjust the width as needed -->
+9. **Feedback Mechanism Development**
 
+These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
 
 The development methodology for our virtual dental training system is structured to mirror the complexity and depth of real-world clinical scenarios. We began by creating a variety of clinical cases, which were meticulously cataloged in a Firebase database. The formulation of each case was carefully designed to follow the progression observed in actual dental treatments.
 
