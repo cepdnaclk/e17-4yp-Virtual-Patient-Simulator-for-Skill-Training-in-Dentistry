@@ -149,7 +149,7 @@ We then turned our attention to the design of the essential dental tool tray and
 
 The culmination of our development process was the establishment of an evaluation criteria. This was engineered to rigorously assess the performance of students, providing a quantitative measure of their proficiency and areas for improvement within the simulated environment. This systematic approach to the system's development is intended to provide dental students with a comprehensive, realistic, and effective learning tool.
 
-### **Feedback Mechanism**
+### **Feedback Mechanism in Detail**
 1. **History Taking**
 
 2. **Questionnaire**  
@@ -158,7 +158,7 @@ The culmination of our development process was the establishment of an evaluatio
 
 4. **Final Feedback**  
  
-   The feedback mechanism of our system is designed to be educational yet challenging, actively engaging students in critical thinking throughout the learning process.
+The feedback mechanism of our system is designed to be educational yet challenging, actively engaging students in critical thinking throughout the learning process.
 
 During the history-taking stage, the system presents a mix of relevant and non-relevant questions for each section. Students are encouraged to discern and select the appropriate questions, for which they receive positive marks, while incorrect selections result in negative marks, promoting attentiveness and decision-making akin to real-life clinical settings.
 
@@ -167,6 +167,25 @@ Following history taking, students interact with a 3D simulator for practical ex
 In the evaluation phase, where students mark the dental chart, precision is rewarded. Correct markings on the chart reflect the student's grasp of the examination and result in additional marks.
 
 The system culminates in comprehensive feedback for each section, where students can review their first attempts alongside the correct answers, reinforcing the learning experience. Finally, the student's overall performance is quantified with a final score out of 100, providing a clear measure of their competency in the simulated environment. This meticulous approach to feedback is not only a reflection of their current knowledge but also a roadmap for areas that require further study and understanding.
+
+## Experiment Setup and Implementation
+### **Experiment Structure**
+<div align="left">
+     <img src="images/experimentstructure.png" width="400"> <!-- Adjust the width as needed -->
+   </div>
+
+An experiment was conducted to evaluate the effectiveness of a virtual patient simulator compared to traditional teaching methods for dental undergraduate students. Participants were split into two groups: one received conventional teaching through PowerPoint presentations, and the other used a virtual patient simulator. Both groups took a pre-assessment test to gauge their initial knowledge and skills. After the respective educational interventions, a post-assessment was conducted to measure the learning outcomes. The study aimed to assess the benefits and effectiveness of simulation-based learning over traditional methods in dental education. It utilized a mixed design with two independent variables: the type of educational treatment and the time factor from pretest to posttest. This allowed for a nuanced analysis of different teaching approaches.
+
+A. Pre-Intervention and Post-Intervention Phases
+The study’s methodology encompassed two main phases: Pre-Intervention and Post-Intervention. Initially, the Pre-Intervention phase assessed the students’ foundational abilities in patient assessment and clinical reasoning. This was done using pre-questionnaires and pre-tests to determine their skill level and perceptions prior to using the virtual patient simulator. After the intervention, during the Post-Intervention phase, similar tools were used to evaluate any improvement or changes in the students' abilities and perceptions. The comparative analysis between the Pre- and Post-Intervention data was essential to establish the impact of the virtual patient simulator on the students' clinical skills.
+
+B. Questionnaire (Self-assessment)
+A comprehensive questionnaire was administered to students before and after the intervention to measure their self-perceived learning outcomes. This self-assessment aimed to gather insights into three domains: history taking, clinical examination skills, and overall patient assessment knowledge. Specifically, it focused on students' confidence in their ability to collect and interpret patient histories, their proficiency in conducting clinical examinations, and their overall perceived competence in patient assessment. Students rated their skills on a Likert scale, which provided a quantifiable measure of their self-assessment. Analyzing the responses from before and after the intervention was key to assessing the impact of the virtual patient simulator as compared to traditional teaching methods in bolstering students' clinical skills and knowledge.
+
+C. Tests (Pre- and Post-Intervention Assessment)
+To establish a performance baseline, a pretest was given to students on a dental case that differed from the one used during the intervention. This aimed to measure their initial patient assessment skills. Following the intervention, a post-test was conducted on the same dental case encountered during the intervention phase, whether it was through the virtual simulator or traditional methods. The post-test evaluated the students' comprehension, analytical abilities, and practical application of the knowledge to a real-world scenario. By contrasting the results of the pre- and post-tests, the study sought to quantify the educational impact of each teaching approach, with a particular focus on the effectiveness of the virtual patient simulator in improving dental clinical education outcomes.
+## Results and Analysis
+## Conclusion
 
 ## Publications
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
