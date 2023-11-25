@@ -92,56 +92,47 @@ Artificial intelligence can be a significant game-changer in this field. An AI c
 
 ## Methodology
 
-### **3D Patient Simulator**
+### **System Outline**
+![System Outline](images/systemoutline.png)
 
-#### Existing System 
-- Intra oral view of a mouth
+In this virtual training system, dental students begin by selecting a specific clinical case, which sets the context for their learning experience. Once a case is chosen, they proceed to the History Taking stage, where they collect all relevant patient history, emulating the process in a real clinical environment.
 
-### Enhancement to the system
+The next step involves conducting an Extra Oral View Examination, where students assess the patient's facial features for any signs indicative of dental health issues. This is followed by an examination of the Intra Oral View, which requires students to inspect the inside of the patient's mouth for a thorough oral evaluation.
 
-#### Interactive 3D Dental Room Model: 
-- Develop a 3D model of a dental clinic, complete with all necessary instruments, for a more realistic user experience.
+Subsequently, students must decide which investigations are necessary based on the clinical scenario. This decision-making process includes analyzing the radiographs provided for the case, integrating these findings into their assessment.
 
-##### Instrument Selection: 
-- Enable users to select and interact with dental instruments within the virtual environment, fostering familiarity and dexterity.
+With the collected data, students are then tasked with formulating a Prognosis, synthesizing the patient's history, examination results, and investigative data to predict the course and outcome of dental conditions.
 
-##### Virtual Dental Operations: 
-- Allow users to conduct virtual dental operations, reinforcing practical skills and promoting the application of theoretical knowledge.
+Finally, the system provides Feedback to the students, reflecting on their choices and performance throughout the simulation. This feedback aims to guide students' learning, helping them understand their areas of strength and those requiring further improvement.
 
-##### Radiograph Selection: 
-- Give users the ability to choose and analyze relevant radiographs, enhancing diagnostic skills and understanding.
+### **Development Methodology**
 
-##### Haptic Device Integration: 
-- Incorporate haptic devices to simulate tactile sensations, providing a more immersive and realistic learning experience.
+## Development Methodology
 
-##### Virtual Reality (VR) Application: 
-- Extend the platform to support VR usage, offering a fully immersive, hands-on training experience in a risk-free, virtual environment.
+The virtual dental training system was meticulously crafted, adhering to a comprehensive development methodology
 
-### **Intelligent Tutoring System**
+1. **Clinical Case Formulation**
+2. **History-Taking Content Development**
+3. **Question and Answer Formulation**
+4. **Virtual Patient With Mouth Defects Modeling**
+5. **Dental Tool Tray Modeling**
+6. **Dental Chart Design**
+7. **Feedback Mechanism Development**
+   
+These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
 
-##### Existing System 
 
-- The virtual patient web interface was designed including the main three phases of patient assessment in dentistry (History taking, Examination and Investigation, Diagnosis
+The development methodology for our virtual dental training system is structured to mirror the complexity and depth of real-world clinical scenarios. We began by creating a variety of clinical cases, which were meticulously cataloged in a Firebase database. The formulation of each case was carefully designed to follow the progression observed in actual dental treatments.
 
-### Enhancement to the system
+With the framework of cases established, we moved on to develop the content for history taking. This crucial step was crafted with the guidance and expertise of seasoned dental professionals to ensure accuracy and relevance.
 
-#### Expanded Clinical Case Database: 
-- Increase the number and diversity of clinical cases to provide a comprehensive learning experience.
-  
-##### Enhanced Patient Visualization: 
-- Incorporate 3D facial modeling to provide a more realistic extraoral view, improving diagnostic and treatment planning skills.
-  
-##### Advanced Auto-Suggest Feature: 
-- Implement an auto-suggestion system that recommends dental clinical terms as users type, improving efficiency and accuracy
+Subsequently, we crafted a set of questions and answers tailored to each phase of the clinical examination, building on the foundational information presented in the prior stage of development.
 
-##### Improved Question Flow Testing: 
--Implement testing to verify the correct sequence of questions based on patient responses.
+The next phase involved the detailed modeling of the oral cavity, complete with various defects to reflect a realistic clinical setting. This allowed for an immersive experience that closely mimics the visual and diagnostic challenges encountered by dental practitioners.
 
-##### Dynamic Question Paraphrasing: 
-- Refresh predefined questions and answers to add dynamism and maintain user engagement.
+We then turned our attention to the design of the essential dental tool tray and the dental chart. Our aim was to enable students to accurately mark defects of any shape with the corresponding color, thereby fostering a hands-on approach to identifying and documenting dental issues.
 
-##### Intelligent Feedback Mechanism: 
-- Develop a smart feedback system that guides users in choosing relevant questions and improves their questioning skills.
+The culmination of our development process was the establishment of an evaluation criteria. This was engineered to rigorously assess the performance of students, providing a quantitative measure of their proficiency and areas for improvement within the simulated environment. This systematic approach to the system's development is intended to provide dental students with a comprehensive, realistic, and effective learning tool.
 
 ## Publications
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
