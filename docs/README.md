@@ -111,7 +111,7 @@ The virtual dental training system was meticulously crafted, adhering to a compr
 
 1. **Clinical Case Formulation**
 2. **History-Taking Content Development**
-    <img src="images/historytaking.gif" width="400"> <!-- Adjust the width as needed -->
+    <img src="images/historytaking.gif" width="200"> <!-- Adjust the width as needed -->
 4. **Question and Answer Formulation**
 5. **Virtual Patient With Mouth Defects Modeling**  
    <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
