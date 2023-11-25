@@ -188,26 +188,52 @@ To establish a performance baseline, a pretest was given to students on a dental
 ## Results and Analysis
 #### Google Form Questionnaire Test
 1.**Analysis of Control Group Data**
- <img src="images/control_group_googleform.png" width="400"> <!-- Adjust the width as needed -->
+<div align="left">
+ <img src="images/control_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
+    </div>
+    
 2.**Analysis of Intervention Group Data**
- <img src="images/intervention_group_googleform.png" width="400"> <!-- Adjust the width as needed -->
+   <div align="left">
+ <img src="images/intervention_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
+       </div>
+       
 3.**Comparison Between Contro and Intervention Group Data**
- <img src="images/comparison_GF.png" width="400"> <!-- Adjust the width as needed -->
+      <div align="left">
+ <img src="images/comparison_GF.png" width="700"> <!-- Adjust the width as needed -->
+          </div>
+          
 4.**Average Ratings on the Experience Of 3D Virtual Environment**
- <img src="images/average_ratings_overall.png" width="400"> <!-- Adjust the width as needed -->
+         <div align="left">
+ <img src="images/average_ratings_overall.png" width="700"> <!-- Adjust the width as needed -->
+             </div>
 #### Written Assessment Test
+
 1.**Analysis of Written Test scores**
- <img src="images/writtenTestScores.png" width="400"> <!-- Adjust the width as needed -->
-2.**Comparison Between Contro and Intervention Group Data**
- <img src="images/comparison_TestScores.png" width="400"> <!-- Adjust the width as needed -->
+            <div align="left">
+ <img src="images/writtenTestScores.png" width="700"> <!-- Adjust the width as needed -->
+                </div>
+
+2.**Comparison Between Control and Intervention Group Data**
+               <div align="left">
+ <img src="images/comparison_TestScores.png" width="700"> <!-- Adjust the width as needed -->
+  </div>
+  
 ## Conclusion
+
+The study investigated the effectiveness of a virtual patient simulator as a teaching tool in dental education, comparing it with traditional methods. The findings showed no significant quantitative difference in enhancing history-taking, clinical examination skills, or overall patient assessment. However, qualitatively, students responded favorably to the simulator, indicating high engagement and usability. Despite the lack of significant quantitative improvements, the positive qualitative feedback suggests that the simulator could serve as an effective supplementary educational tool.
+
+There was a notable enhancement in dental assessment skills within the intervention group, hinting at the simulator's potential when focused on particular skills. This points to the possible benefits of integrating such technologies into dental education, especially as part of a comprehensive educational strategy.
+
+The study was limited by its small sample size and preliminary testing phase, suggesting the need for further research with a larger, diverse cohort, a mix of assessment tools, more clinical scenarios, and longer simulator interaction. While the study did not conclusively prove the simulator's superiority, it highlighted the promise of technology-enhanced learning tools in preparing dental students for clinical practice, provided they are optimized for educational use.
 
 ## Publications
 [//]: # "Note: Uncomment each once you uploaded the files to the repository"
 
 
-1. [Semester 7 report](./Publications/)
-2. [Semester 7 slides](./Publications/)
+1. [Semester 7 report](./images/semester7_Intro_LR.pdf)
+2. [Semester 7 slides](./images/semester7_Intro_LR)
+3. [Semester 8 report](./images/semester7_Intro_LR)
+2. [Semester 8 slides](./images/semester7_Intro_LR)
 <!-- 5. Author 1, Author 2 and Author 3 "Research paper title" (2021). [PDF](./). -->
 
 
