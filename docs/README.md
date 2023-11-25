@@ -111,13 +111,14 @@ The virtual dental training system was meticulously crafted, adhering to a compr
 
 1. **Clinical Case Formulation**
 2. **History-Taking Content Development**
-3. **Question and Answer Formulation**
-4. **Virtual Patient With Mouth Defects Modeling**  
+    <img src="images/historytaking.gif" width="400"> <!-- Adjust the width as needed -->
+4. **Question and Answer Formulation**
+5. **Virtual Patient With Mouth Defects Modeling**  
    <img src="images/mouthmodel.gif" width="400"> <!-- Adjust the width as needed -->
-5. **Dental Tool Tray Modeling**
-   <img src="images/tooltray.gif" width="400"> <!-- Adjust the width as needed -->
+6. **Dental Tool Tray Modeling**
+   <img src="images/tooltray.png" width="400"> <!-- Adjust the width as needed -->
 7. **Dental Chart Design**
-    <img src="images/dentalchart.gif" width="400"> <!-- Adjust the width as needed -->
+    <img src="images/dentalchart.png" width="400"> <!-- Adjust the width as needed -->
 9. **Feedback Mechanism Development**
 
 These steps leveraged technologies such as Firebase for database management and deployment, Unity and Blender for 3D simulator modeling, and React for creating an intuitive web application interface.
