@@ -38,7 +38,7 @@ title: Virtual Patient Simulator for Skill Training in Dentistry
 ---
 
 ## Abstract
-Explore the potential of integrating Virtual Reality (VR) and Artificial Intelligence (AI) techniques to increase the effectiveness of skill training in dentistry by providing personalised instruction, assessment and formative feedback in a form and on a scale not possible in the physical world. The systems being built promise to provide dental students with an increased amount of guided practice at a relatively low cost.
+Our project aims to create a 3D virtual patient simulator to help dental students practice patient assessments, a crucial skill, especially during times like the pandemic when traditional hands-on learning is challenging. Regular training can be limiting and risky, but our simulator provides various scenarios safely. Building this simulator involves challenges, including complex 3D modeling and potential high costs. We used the Unity game engine for interactive features and Blender for precise modeling, creating a detailed virtual dental clinic where students can practice both outside and inside mouth examinations. They can also work with digital versions of dental tools and x-rays for different cases. Future updates will include haptic feedback for a more realistic Virtual Reality (VR) experience, with built-in grading systems to assess student performance. Early tests show our approach is cost-effective and could significantly improve dental education by preparing students better for real-world dental work.
 
 ---
 ## Related works
