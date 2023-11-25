@@ -171,8 +171,8 @@ The system culminates in comprehensive feedback for each section, where students
 ## Experiment Setup and Implementation
 ### **Experiment Structure**
 <div align="left">
-     <img src="images/experimentstructure.png" width="400"> <!-- Adjust the width as needed -->
-   </div>
+ <img src="images/experimentstructure.png" width="400"> <!-- Adjust the width as needed -->
+</div>
 
 An experiment was conducted to evaluate the effectiveness of a virtual patient simulator compared to traditional teaching methods for dental undergraduate students. Participants were split into two groups: one received conventional teaching through PowerPoint presentations, and the other used a virtual patient simulator. Both groups took a pre-assessment test to gauge their initial knowledge and skills. After the respective educational interventions, a post-assessment was conducted to measure the learning outcomes. The study aimed to assess the benefits and effectiveness of simulation-based learning over traditional methods in dental education. It utilized a mixed design with two independent variables: the type of educational treatment and the time factor from pretest to posttest. This allowed for a nuanced analysis of different teaching approaches.
 
@@ -190,33 +190,33 @@ To establish a performance baseline, a pretest was given to students on a dental
 1.**Analysis of Control Group Data**
 <div align="left">
  <img src="images/control_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
-    </div>
+</div>
     
 2.**Analysis of Intervention Group Data**
-   <div align="left">
+ <div align="left">
  <img src="images/intervention_group_googleform.png" width="700"> <!-- Adjust the width as needed -->
-       </div>
+</div>
        
 3.**Comparison Between Contro and Intervention Group Data**
-      <div align="left">
+<div align="left">
  <img src="images/comparison_GF.png" width="700"> <!-- Adjust the width as needed -->
-          </div>
+</div>
           
 4.**Average Ratings on the Experience Of 3D Virtual Environment**
-         <div align="left">
+<div align="left">
  <img src="images/average_ratings_overall.png" width="700"> <!-- Adjust the width as needed -->
-             </div>
+</div>
 #### Written Assessment Test
 
 1.**Analysis of Written Test scores**
-            <div align="left">
+<div align="left">
  <img src="images/writtenTestScores.png" width="700"> <!-- Adjust the width as needed -->
-                </div>
+</div>
 
 2.**Comparison Between Control and Intervention Group Data**
-               <div align="left">
+<div align="left">
  <img src="images/comparison_TestScores.png" width="700"> <!-- Adjust the width as needed -->
-  </div>
+</div>
   
 ## Conclusion
 
@@ -231,9 +231,9 @@ The study was limited by its small sample size and preliminary testing phase, su
 
 
 1. [Semester 7 report](./images/semester7_Intro_LR.pdf)
-2. [Semester 7 slides](./images/semester7_Intro_LR)
+2. [Semester 7 slides](./images/MidPresentation-FYP.pdf)
 3. [Semester 8 report](./images/semester7_Intro_LR)
-2. [Semester 8 slides](./images/semester7_Intro_LR)
+2. [Semester 8 slides](./images/Finalpresentation-FYPNovember.pdf)
 <!-- 5. Author 1, Author 2 and Author 3 "Research paper title" (2021). [PDF](./). -->
 
 
